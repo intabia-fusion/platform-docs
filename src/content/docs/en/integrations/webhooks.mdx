@@ -10,11 +10,15 @@ import exampleOutgoing from "../../../../assets/screenshots/huly/webhooks/webhoo
 import webhookCreate from "../../../../assets/screenshots/huly/webhooks/webhook-create.png";
 import webhookEndpoint from "../../../../assets/screenshots/huly/webhooks/webhook-endpoint.png";
 import webhookDeliveries from "../../../../assets/screenshots/huly/webhooks/webhook-deliveries.png";
+import webhookRules from "../../../../assets/screenshots/huly/webhooks/webhook-rules.png";
+import webhookRuleTemplate from "../../../../assets/screenshots/huly/webhooks/webhook-rule-template.png";
+import webhookRuleEndpoint from "../../../../assets/screenshots/huly/webhooks/webhook-rule-endpoint.png";
+import webhookRuleEditor from "../../../../assets/screenshots/huly/webhooks/webhook-rule-editor.png";
 
 
 Webhooks work both ways:
 
-- **incoming** — HTTP requests from external systems that perform operations in a workspace on behalf of an [API key](/en/integrations/api-keys): creating and updating issues, commenting on them, logging time, posting chat messages, creating and updating documents;
+- **incoming** — HTTP requests from external systems that perform operations in a workspace on behalf of an [API key](/en/integrations/api-keys): creating and updating issues, commenting on them, logging time, posting chat messages, creating and updating documents. A system that can't build our request body can still be connected as-is — [rules](#rules-for-a-foreign-payload-format) translate its own payload for you;
 - **outgoing** — HTTP requests the platform sends you when something happens in the workspace.
 
 Both are configured in **Settings → API + Webhooks**. The same page has an **Examples** section: pick an operation or an event and a real object, and get a ready request body with real identifiers substituted.
@@ -49,7 +53,7 @@ The second one — the same key right in the path, for senders (some no-code ser
 ```bash
 curl -X POST 'https://<host>/_webhook/api/v1/webhook/k/fus_myworkspace_7f3a9c1d2e4f5061728394a5b6c7d8e9f0a1b2c3d4e5f60718293a4b5c6d7e8' \
   -H 'Content-Type: application/json' \
-  -d '{"action": "chat:post", "space": "general", "message": "Deploy finished"}'
+  -d '{"action": "chat:post", "space": "64f10a1b2c3d4e5f6a7b8c90", "message": "Deploy finished"}'
 ```
 
 A key in the path ends up whole in proxy and load-balancer access logs — use this variant only when a header isn't available. It also has a stricter rate limit (see below).
@@ -57,28 +61,29 @@ A key in the path ends up whole in proxy and load-balancer access logs — use t
 There is no workspace in the address: the key itself decides it. The exact addresses of your installation are shown in **Settings → API + Webhooks → Examples → Incoming request**, ready to copy.
 
 <Image src={exampleIncoming} alt='Incoming request example' inferSize />
- The request body is always JSON in the shape `{ "action": "...", "space": "...", ...operation-specific fields }`; `action` selects which operation runs, and `space` is that operation's target in the sender's own terms — a project id, an issue id, a channel name, or a teamspace name, depending on the operation (see the table below).
+ The request body is always JSON in the shape `{ "action": "...", "<target field>": "...", ...operation-specific fields }`. `action` selects which operation runs, and the target is carried by one of three fields, a different one per operation: `space` (a project, a channel or a teamspace), `issue` (an issue) or `document` (a document). Which field goes with which operation is in the table below.
 
 ## Operations
 
 | `action` | What it does | Required fields | Optional fields |
 |---|---|---|---|
 | `issue:create` | Creates an issue | `space` — project identifier (e.g. `FUSIO`); `title` | `description` (markdown), `assignee` (email), `priority`, `estimation` (number), `parent` (parent issue identifier) |
-| `issue:update` | Updates an issue | `space` — **issue** identifier (e.g. `FUSIO-42`) | `title`, `description`, `priority`, `assignee` (email, or `null` to unassign), `status` (status name) |
-| `issue:comment` | Comments on an issue | `space` — issue identifier; `message` | — |
-| `issue:time_report` | Logs time on an issue, or edits an existing entry when `id` is given | `space` — issue identifier; to create, also `employee` (email), `date` (`YYYY-MM-DD`), `hours` (greater than zero) | `description`; `id` — time report id: when present, only the fields you send are changed on that entry |
-| `chat:post` | Posts a message to a channel | `space` — channel name or id; `message` | — |
-| `doc:create` | Creates a document | `space` — teamspace name; `title` | `content` (markdown), `parent` (parent document id) |
-| `doc:update` | Updates a document | `space` — document id | `title`, `content` |
+| `issue:update` | Updates an issue | `issue` — issue identifier (e.g. `FUSIO-42`) | `title`, `description`, `priority`, `assignee` (email, or `null` to unassign), `status` (status name) |
+| `issue:comment` | Comments on an issue | `issue` — issue identifier; `message` | — |
+| `issue:time_report` | Logs time on an issue, or edits an existing entry when `id` is given | `issue` — issue identifier; to create, also `employee` (email), `date` (`YYYY-MM-DD`), `hours` (greater than zero) | `description`; `id` — time report id: when present, only the fields you send are changed on that entry |
+| `chat:post` | Posts a message to a channel | `space` — channel id; `message` | — |
+| `doc:create` | Creates a document | `space` — teamspace id; `title` | `content` (markdown), `parent` (parent document id) |
+| `doc:update` | Updates a document | `document` — document id | `title`, `content` |
+
+Instead of `description` (on issues) and `content` (on documents) you may send a `body` field — the same markdown. Sending both at once is refused.
 
 How references are resolved:
 
-- A **project** (`issue:create`) is looked up by project identifier, and an **issue** (`issue:update`, `issue:comment`, and `parent` for `issue:create`) is looked up by its own identifier like `FUSIO-42`.
+- A **project** (`issue:create`) is looked up by project identifier, and an **issue** (`issue:update`, `issue:comment`, `issue:time_report`, and `parent` for `issue:create`) is looked up by its own identifier like `FUSIO-42`.
 - The **assignee** is looked up by email as a verified social identity on a contact.
-- A **channel** (`chat:post`) is looked up by id first, then by name if no id matched; if the name matches more than one channel, the request fails.
+- A **channel** (`chat:post`), a **teamspace** (`doc:create`) and a **document** (`doc:update`, and `parent` for `doc:create`) are only accepted as an internal id: a name or a title can be renamed, an id cannot. The easiest way to get one is **Examples → Incoming request**, with the target you need picked there.
 - A **status** (`issue:update`) is matched by name, case-insensitively, among the statuses available to the issue's project's task type.
-- A **time report** (`issue:time_report`): `employee` is looked up by email just like `assignee`; on an edit, `id` is checked against the issue from `space`, so another issue's entry cannot be touched. The id comes back from the create call (`reportId`) and rides along in the outgoing `issue.time_reported` event.
-- A **teamspace** (`doc:create`) is looked up by name. A **document**, though — both the one updated by `doc:update` and the `parent` in `doc:create` — is only accepted as a raw internal id: documents don't yet have a human-readable identifier like `FUSIO-42` to look up by title.
+- A **time report** (`issue:time_report`): `employee` is looked up by email just like `assignee`; on an edit, `id` is checked against the issue from `issue`, so another issue's entry cannot be touched. The id comes back from the create call (`reportId`) and rides along in the outgoing `issue.time_reported` event.
 
 `priority` values (case-insensitive): `urgent`, `high`, `medium`, `low`, `none` (alias: `no_priority`).
 
@@ -114,15 +119,18 @@ An error response is always JSON in the shape `{ "error": "<code>", "message": "
 
 | `error` | HTTP | Meaning |
 |---|---|---|
-| `unauthorized` | 401 | The key is missing, unknown, revoked, expired, or issued for a different workspace. The response is deliberately identical in all of these cases, so it doesn't hint at which keys exist. |
-| `forbidden` | 403 | The key doesn't grant the operation named in `action` — it wasn't selected when the key was issued. |
-| `invalid_payload` | 400 | The body is missing required `action`/`space`, or `action` isn't one of the known operations. |
+| `unauthorized` | 401 | The key is missing, unknown, revoked, expired, issued for a different workspace, or does not have incoming webhooks enabled. The response is deliberately identical in all of these cases, so it doesn't hint at which keys exist. |
+| `forbidden` | 403 | The key doesn't grant the operation named in `action` — it wasn't selected when the key was issued. The same code is used when the target lies outside the spaces the key is limited to. |
+| `invalid_payload` | 400 | The body is missing `action` or the target field, or `action` isn't one of the known operations. |
 | `payload_too_large` | 413 | The request body exceeds 1 MB. |
 | `rate_limited` | 429 | The rate limit was exceeded. |
-| `not_found` | 404 | No job with that `id` (or it belongs to a different workspace); the same code is used for an unknown path. |
+| `not_found` | 404 | The target was not found (no such project, issue, channel, teamspace or document). The same code covers a missing job in `GET job/{id}` and an unknown path. |
+| `service_unavailable` | 503 | The account service is temporarily unavailable and the key could not be verified. The only intake error worth retrying. |
 | `internal_error` | 500 | An internal error while accepting the request. |
 
-Checks run in order, and each one only runs once the previous one passed: key → request body → permission for the operation → rate limit → idempotency → enqueue. The one exception is `413`: an oversized body is rejected before the request reaches this chain at all.
+Checks run in order, and each one only runs once the previous one passed: per-key rate limit → the key itself → request body and `action` → permission for the operation → idempotency → target lookup → enqueue. The one exception is `413`: an oversized body is rejected before the request reaches this chain at all.
+
+The target is looked up before the job is queued on purpose: a typo in a project identifier comes back as a `404` right away, instead of as a failed job a minute later. If the lookup itself fails — the transactor is down, say — the job is accepted anyway and the target is checked when it runs.
 
 ## Rate limits
 
@@ -131,6 +139,8 @@ Request rate is limited with a sliding window, separately per key and per source
 - key in the `Authorization` header — 60;
 - key in the `/k/{key}` path — 20 (stricter: this form leaks the whole key into logs);
 - source IP — 60.
+
+The key limit is counted against the value presented, before it's even validated. The IP limit is only spent by requests whose key failed validation — it's a brute-force guard, and a valid key doesn't draw on it even when requests share an IP with someone else's failed attempts.
 
 A `429` response carries these headers:
 
@@ -148,10 +158,73 @@ Deduplication doesn't compare request bodies — sending the same `Idempotency-K
 
 ## Error and retry behavior
 
-- Errors at the ingest step (`401`, `403`, `400`, `413`, `429`) are final. Retrying the same request unchanged won't help — fix the key, the body, the permissions, or wait out the rate-limit window.
-- After a `202`, processing is asynchronous. If the operation itself fails permanently (invalid references in the body, or the key lacking rights for the target space), the job is marked `failed` right away, with no retries — the reason is visible in `error` via `GET job/{id}`.
+- Errors at the ingest step (`401`, `403`, `400`, `404`, `413`, `429`) are final. Retrying the same request unchanged won't help — fix the key, the body, the permissions, the target, or wait out the rate-limit window. Only `503` and `500` are worth retrying.
+- After a `202`, processing is asynchronous. If the operation itself fails permanently (invalid references in the body, or the key lacking rights for the target space), the job is marked `failed` right away, with no retries — the reason is visible in `error` via `GET job/{id}`. The exception is a rejection from an internal rate limit — that job is retried on the schedule below.
 - Transient failures (network issues, internal services being unavailable) are retried on a schedule: 30 seconds, then 1, 2, 4, 8 minutes — up to 5 attempts in total. If the operation still fails after that, the job is marked `failed` for good.
 
+
+# Rules for a foreign payload format
+
+Alertmanager, GitLab, Sentry, and similar systems send their own request body and can't build ours. For them there are separate endpoints that accept the sender's body as-is, and rules translate it into platform operations:
+
+```bash
+curl -X POST 'https://<host>/_webhook/api/v1/webhook/in' \
+  -H 'Authorization: Bearer fus_myworkspace_7f3a9c1d2e4f5061728394a5b6c7d8e9f0a1b2c3d4e5f60718293a4b5c6d7e8' \
+  -H 'Content-Type: application/json' \
+  -d '{ ...your system payload... }'
+```
+
+There's also a path-key variant — `POST /_webhook/api/v1/webhook/k/{key}/in` — with the same caveats and the same limit as `/k/{key}`.
+
+## Where to configure
+
+Rules live on a specific API key. In **Settings → API + Webhooks**, the key's row has a **Rules** button; it shows up only when the key isn't revoked, has incoming webhooks enabled, and was issued by you. Other people's keys and rules aren't visible, not even to the workspace owner.
+
+<Image src={webhookRules} alt='Key rules list' inferSize />
+
+Rules are checked top to bottom; drag to reorder them. Each one can be switched off temporarily without deleting it. Edits take effect within about ten seconds — the service caches rules.
+
+## From a template
+
+The fast path is **From a template**. Ready-made templates cover Prometheus Alertmanager, Grafana, GitLab (push and pipeline), and Sentry. You only pick the operation and the target — say, "post to the `general` channel" — the conditions, fields, and sample body are already filled in.
+
+<Image src={webhookRuleTemplate} alt='Creating a rule from a template' inferSize />
+
+After creating it, you get the endpoint to put into the sending system. The key goes in as `Authorization: Bearer <key>`; for Alertmanager that's `http_config.authorization.credentials`.
+
+<Image src={webhookRuleEndpoint} alt='Endpoint for incoming rules' inferSize />
+
+## How a rule works
+
+<Image src={webhookRuleEditor} alt='Rule editor' inferSize />
+
+- **Sample request body** — the JSON your system sends. It's only used in the editor: it's where the path lists for conditions and fields come from, and it's what the preview is computed against.
+- **Conditions** — checks against the whole body; all of them must pass. Operators: equals, not equals, exists, matches a regular expression, one of (a comma-separated list of values).
+- **For each** — a path to an array in the body. The rule fires once per array element — a single Alertmanager notification can carry several alerts at once.
+- **Item condition** — an extra check applied per element, with paths counted from the element itself. This is exactly how `firing` and `resolved` are separated within one group.
+- **Operation** and **Target** — what to do and where. The choice is limited to the operations allowed for this key.
+- **Fields** — the operation's fields, built from a template: `{{labels.alertname}}` is a path from the current element (or from the body's root, when there's no loop), while `{{$.externalURL}}` is always from the root. The **Insert value** button fills in a path from the sample body.
+- **Preview** shows whether the rule matched, what value was found for each condition, and what the fields would resolve to.
+
+## Response
+
+A successful response is `202` with a list of the created jobs:
+
+```json
+{
+  "jobs": [{ "jobId": "wh_1a2b3c4d5e", "rule": "6ab2be02925a16ab365dcd84" }],
+  "skipped": []
+}
+```
+
+Each job's status is checked via `GET job/{id}`, same as for ordinary incoming requests.
+
+- If no rule matches, the response is still `202`, just with an empty `jobs`. That's a success for the sender — it shouldn't retry a request only because the event wasn't one you cared about.
+- `skipped` lists rules that matched but couldn't run: `forbidden` — the operation or target is outside the key's rights, `not_found` — the target was deleted or renamed. A rule never grants more than the key itself already has.
+- A single request yields at most 50 jobs. If the matching rules together would produce more, the whole request is rejected with `413`, and nothing is queued.
+- The `Idempotency-Key` header isn't supported on these endpoints: one request turns into several jobs, so there's nothing to match a single key against.
+
+Regular expressions in conditions run under a hard time limit, and a pattern longer than 200 characters or a checked value longer than 2000 characters is treated as no match. This guards against expressions that would otherwise hang the check.
 
 # Outgoing webhooks
 
@@ -211,7 +284,7 @@ A ready sample carrying real identifiers is built in **Examples → Outgoing eve
 - `webhookId`, `webhookTimestamp` — delivery id and time, both part of the signature;
 - `organizationId` — the workspace id.
 
-Values in an event are the ones the incoming API accepts back, so an object can be sent straight in again: a status arrives as its **name** (`In Progress`), the assignee and the actor as **emails**, priority as a name (`urgent`, `high`, `medium`, `low`, `no_priority`), a channel as its name in `data.channel`, and the parent issue of a comment or a time report as an identifier in `data.issue`. A value that could not be resolved stays an internal id.
+Values in an event are the ones the incoming API accepts back, so an object can be sent straight in again: a status arrives as its **name** (`In Progress`), the assignee and the actor as **emails**, priority as a name (`urgent`, `high`, `medium`, `low`, `no_priority`), a channel as its id in `data.channel` (exactly what `chat:post` takes, with the name alongside it in `data.channelName`), and the parent issue of a comment or a time report as an identifier in `data.issue`. A value that could not be resolved stays an internal id.
 
 ## Signature
 

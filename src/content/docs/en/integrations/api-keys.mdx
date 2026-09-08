@@ -33,7 +33,7 @@ When creating a key, you configure:
 - **Rights mode** (personal keys only) — "full rights" (writes with the person's own rights) or "read only". A personal key carries no operation list, see the next section.
 - **Where it applies** — an optional list of projects, channels and folders: writes are allowed only into the listed ones. Empty means the whole workspace.
 - **Token lifetime** — 1 to 90 days, 30 by default. It sets the key's own expiration too: the date is derived from this number and shown next to it, never picked separately.
-- **Incoming webhooks** — a separate flag: may this key be used on the [ingest routes](/en/integrations/webhooks). It is independent of operations: a key with full rights but without this flag is refused there.
+- **Incoming webhooks** — a separate flag: may this key be used on the [ingest routes](/en/integrations/webhooks). It is independent of operations: a key with full rights but without this flag is refused there. It also gives the key a **Rules** button — [mapping a foreign payload format](/en/integrations/webhooks#rules-for-a-foreign-payload-format).
 
 <Image src={apiKeyPersonal} alt='Creating a personal key' inferSize />
 
