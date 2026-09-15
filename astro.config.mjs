@@ -337,6 +337,43 @@ export default defineConfig({
             ],
           },
           {
+          label: 'Настройка workflow',
+          translations: { en: 'Workflow setting' },
+          collapsed: true,
+          items: [
+              {
+                label: 'Что такое workflow?',
+                translations: { elabeln: 'What is workflow?' },
+                link: '/workflow/defining-workflow/',
+              },     
+              {
+                label: 'Как настроить  workflow?',
+                translations: { en: 'create workflow' },
+                link: '/workflow/create-workflow/',
+              },     
+              {
+                label: 'Установка статусов',
+                translations: { en: 'create statuses' },
+                link: '/workflow/create-statuses/',
+              },  
+                {
+                label: 'Создание экранов',
+                translations: { en: 'create screens' },
+                link: '/workflow/create-screens/',
+              },     
+                {
+                label: 'Настройка правил и переходов по статусам',
+                translations: { en: 'rules and transitions settings' },
+                link: '/workflow/create-rules-transitions/',
+              },     
+                {
+                label: 'Добавление workflow к проекту',
+                translations: { en: 'add workflow to project' },
+                link: '/workflow/add-workflow/',
+              },     
+          ]
+         },
+          {
           //  label: 'Командные ресурсы',
           label: 'Планировщик',
             translations: { en: 'Team resources' },
