@@ -3,10 +3,6 @@ title: Virtual office
 description: Learn how to use Intabia Platform's virtual office for voice and video conferencing.
 ---
 
-import LocalVideo from "../../../../components/LocalVideo.astro";
-
-<LocalVideo id='I_ABiXcgMNw' posterQuality='max' />
-
 Intabia Platform provides the ability for team members to meet through built-in audio and video conferencing. To access the Live Office Virtual Environment, click the building icon in the left sidebar.
 
 ## Navigating your virtual office
@@ -18,10 +14,6 @@ The virtual office contains three kinds of rooms:
 
 
 ## Individual offices
-
-At the bottom of the screen, you can choose the privacy setting for your own personal office:
-- **Knock required** - Others must request access by knocking before entering.
-- **Do not disturb** - Others are unable to request access to your office.
 
 To enter someone else's office, click on any team member's office to request to enter. You'll see a dialog indicating that you are knocking on their virtual office door, and you'll need to wait to be allowed to enter.
 
@@ -37,23 +29,29 @@ Click on any meeting room to enter. If you're the first one in the meeting room,
 
 During the meeting, a few options are available at the bottom of the screen:
 
-* **Change access** - Select either open, knock required or do not disturb.
+* **Change access** - Click the button at the top of the screen to switch the room between `Open room` and `Close room`.
 * **Audio** - Mute or unmute, and change settings for speaker, microphone and noise cancellation.
 * **Video** - Turn camera on or off, and change settings for which camera to use and how much to blur the background.
 * **Share** - Share all or part of your screen with everyone in the room. To include system audio when sharing your screen, open the settings menu next to the screen share icon and and toggle "include system audio". Restart the screen share to apply the changes.
-* **Record** - Toggle meeting recording on or off. Recordings are automatically saved to your Drive and are visible to anyone with access to the Drive space.
-* **Transcription** - Toggle transcription on or off. For more on how Intabia Platform's AI assistant Julia AI transcribes meetings in real-time, see [Transcription](/en/communication/transcription).
+* **Record** - Toggle meeting recording on or off. The recording is attached to the meeting minutes (the "Attachments" section) and is available to anyone who can see those minutes.
+* **Transcription** - Toggle transcription on or off. For more on how Intabia Platform's AI assistant Julia AI transcribes meetings in real-time, see [Live transcription](/en/communication/live-transcription).
 * **Full-screen mode** - Open the call in full screen.
-* **More options** - Copy guest link (in development), and Settings (for setting the room language, as well as recording and transcription defaults).
+* **More options** - Copy guest link, and Settings (for setting the room language, as well as recording and transcription defaults).
 * **Leave room** - Exit the meeting room.
 
 ## Navigating the platform during a call
 
 You'll notice that meetings are automatically opened in the right sidebar. You can navigate the platform while in a call, and the call will remain open in the sidebar. From the sidebar, you can switch between the video, chat, and transcription tabs.
 
+## Room security settings
+
+Privacy can be turned on before or during a meeting. While it's on, all of the meeting's materials (transcription, recording, documents and chat) are available only to the meeting's members.
+
+Search over private meetings' materials is also limited to members.
+
 ## Editing your office space
 
-Although Intabia Platform's virtual office comes with default offices and meeting rooms, teams may wish to customize the number of rooms and office layout to best suit their needs. Only the creator of the workspace can edit the office space.
+Although Intabia Platform's virtual office comes with default offices and meeting rooms, teams may wish to customize the number of rooms and office layout to best suit their needs. Administrators and owners of the workspace can edit the office space.
 
 Click the `Edit office` button in the top right corner. A few options are available for editing:
 - Rename offices and rooms by clicking on their names.
@@ -61,17 +59,7 @@ Click the `Edit office` button in the top right corner. A few options are availa
 - Arrange offices and rooms by clicking and dragging their edges or dragging them to a new place in the layout.
 - Add a new office or room by clicking the `+` button in the top right corner.
 
-When you have finished editing your office space, click `Finalize editing` in the top right corner to save your changes.
-
-<div style="position: relative; padding-top: 56.25%;">
-  <iframe
-    src="https://customer-davn16od7sue0s1k.cloudflarestream.com/be043552c1cb2c14bed3357747333024/iframe?poster=https%3A%2F%2Fcustomer-davn16od7sue0s1k.cloudflarestream.com%2Fbe043552c1cb2c14bed3357747333024%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600"
-    loading="lazy"
-    style="border: none; position: absolute; top: 0; left: 0; height: 100%; width: 100%;"
-    allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-    allowfullscreen="true"
-  ></iframe>
-</div>
+When you have finished editing your office space, click `Done` in the top right corner to save your changes.
 
 ### Adding floors
 

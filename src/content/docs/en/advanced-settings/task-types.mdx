@@ -3,13 +3,10 @@ title: Task types
 description: Learn how to customize your workspace with task types.
 ---
 
-import LocalVideo from "../../../../components/LocalVideo.astro";
-import { Image } from "astro:assets";
-import settingsProcessStates from "../../../../assets/screenshots/huly/settings-process-states.png";
-import settingsCustomProcessStates from "../../../../assets/screenshots/huly/settings-custom-process-states.png";
-import settingsCustomProjectType from "../../../../assets/screenshots/huly/settings-custom-project-type.png";
-
-<LocalVideo id="EVmZr1Ybi8c" posterQuality="max" />
+import Shot from "../../../../components/Shot.astro";
+import settingsProcessStates from "../../../../assets/screenshots/advanced-settings/task-types-process-states-en.png";
+import settingsCustomProcessStates from "../../../../assets/screenshots/advanced-settings/task-types-custom-states-en.png";
+import settingsCustomProjectType from "../../../../assets/screenshots/advanced-settings/task-types-custom-project-en.png";
 
 Intabia Platform is designed to be highly configurable to any kind of workflow. While some customization features are still being developed, there are several options already available for you to configure your workspace to your specific needs.
 
@@ -19,31 +16,23 @@ Task types define the kinds of tasks inside your projects. A task type can have 
 
 To take a look at the default task type used in your Tracker, navigate to Settings and select `Classic project` from the `SPACE TYPES` area in the left sidebar menu. `Classic project` is the default [space type](/en/advanced-settings/space-types) used in Intabia Platform.
 
-Notice in the `TASK TYPES` section that one task types are listed: `Issue`. Opening this task type will reveal its properties and process states.
+Notice in the `TASK TYPES` section that one task type is listed: `Classic Issue`. Opening this task type will reveal its properties and process states.
 
-The `Issue` task type has process states of `Backlog`, `Todo`, `In Progress`, `Done` and `Canceled`.
+The `Classic Issue` task type has process states of `Backlog`, `Todo`, `In Progress`, `Done` and `Canceled`.
 
-<Image
-  src={settingsProcessStates}
-  alt="Settings for process states"
-  inferSize
- 
-/>
-
-> **Note:** If you've already connected your workspace to GitHub, you'll also see a `Pull request` task type. These tasks are synced with GitHub, so they have their own unique properties and process states.
+<Shot src={settingsProcessStates} alt="Settings for process states" />
 
 ## Process states
 
-Process states are the stages that a task goes through in its lifecycle. Each task type can have its own set of process states. The Intabia Platform system will automatically move tasks between these states based on user actions. The following actions will trigger automatic state changes:
+Process states are the stages that a task goes through in its lifecycle. Each task type can have its own set of process states, grouped into status categories (`Backlog`, `Unstarted`, `Active`, `Done status / Won`, `Done status / Lost`).
 
-1. **Scheduling an action item** - When the issue assignee schedules an [action item](/en/task-tracking/creating-action-items) connected to that issue, the issue status will change from "Todo" to "In Progress".
-2. **Completing a scheduled action item** - When the issue assignee checks off an [action item](/en/task-tracking/creating-action-items) as complete (after scheduling it in their Planner), the issue status will change to "Done".
+If an issue has an assignee and its status belongs to the `Unstarted` or `Active` category (in the `Classic Issue` task type, that's the `Todo` and `In Progress` statuses), the system automatically creates an [action item](/en/task-tracking/creating-action-items) for the assignee in their Planner. Completing or rescheduling that action item no longer changes the issue's status - the two are not linked.
 
-Even if you customize your process states to use different names (see below), the system will still recognize these actions based on the `Status category` of the process state. For example, you could change the name of the process state from "In Progress" to "Actively Working" and as long as the `Status category` is set to "Active", the system will still recognize this state as the one that triggers the automatic state change.
+Even if you customize your process states to use different names (see below), the system will still recognize this rule based on the `Status category` of the process state. For example, you could change the name of the process state from "In Progress" to "Actively Working" and as long as the `Status category` is set to "Active", the system will still create an action item when an assignee is set on an issue in this state.
 
 ## Creating custom task types
 
-In order to use your own customized task types and process states, you can either modify the default task types on the Classic Project, or create a new [space type](/en/advanced-settings/space-types). Either way, this can only be done by the workspace owner or maintainer.
+In order to use your own customized task types and process states, you can either modify the default task types on `Classic project`, or create a new [space type](/en/advanced-settings/space-types). Either way, this can only be done by the workspace owner or maintainer.
 
 To create a new space type, navigate to settings and click the `+` button next to `SPACE TYPES` in the left sidebar menu.
 
@@ -53,22 +42,17 @@ Find your new space type in the left sidebar menu. From here, you can add member
 
 Click the `+` button in the `TASK TYPES` section. Enter a name for your new task type (for example, "Issue" or "Task"), choose whether this type can be used for sub-tasks, and click `Create`.
 
-The steps for creating and modifying task types in the Classic Project are the same.
+The steps for creating and modifying task types in `Classic project` are the same.
 
 ## Creating custom process states
 
 Open your new task types to create your custom process states. You'll see placeholders for each category, each of which can be edited to your specific needs.
 
-Click on any process state to edit it. You can change the name of the state, the color associated with it, and the status category. The status category is used to trigger automatic state changes based on user actions.
+Click on any process state to edit it. You can change the name of the state and the color associated with it. The status category can only be chosen when creating a new state — it can't be changed for an existing one; this is the category used to create an action item in the assignee's Planner (see above).
 
-You can also create new process states. For example, within the "Active" status category, you may wish to add more states, such as "Started" "In progress", "Submitted for review" and "Under review". You might also want to add more specific states to the "Done status/lost" category, such as "Cancelled", "On hold" or "Blocked".
+You can also create new process states. For example, within the "Active" status category, you may wish to add more states, such as "Started" "In progress", "Submitted for review" and "Under review". You might also want to add more specific states to that same category, such as "Cancelled", "On hold" or "Blocked".
 
-<Image
-  src={settingsCustomProcessStates}
-  alt="Settings for custom process states"
-  inferSize
- 
-/>
+<Shot src={settingsCustomProcessStates} alt="Settings for custom process states" />
 
 ## Using your custom task types
 
@@ -76,11 +60,6 @@ In order to use your custom task types, you'll need to create a new project base
 
 When creating a new project, select your custom task types from the `Project type` dropdown menu.
 
-<Image
-  src={settingsCustomProjectType}
-  alt="Using a custom project type"
-  inferSize
- 
-/>
+<Shot src={settingsCustomProjectType} alt="Using a custom project type" />
 
 Now, when creating new issues within your project, you'll find all of your custom task types and process states available to use.

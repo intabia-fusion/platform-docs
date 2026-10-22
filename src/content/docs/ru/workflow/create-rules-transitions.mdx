@@ -3,23 +3,25 @@ title: Настройка правил и переходов по статуса
 description: Настройка transitions
 ---
 
-import { Image } from "astro:assets";
-import transitions from  "../../../../assets/screenshots/huly/workflow/transitions-settings.png";
-import rules from  "../../../../assets/screenshots/huly/workflow/create-rules.png";
-import field from  "../../../../assets/screenshots/huly/workflow/required-field-setting.png";
-import status2 from  "../../../../assets/screenshots/huly/workflow/status-setting2.png";
-import status1 from  "../../../../assets/screenshots/huly/workflow/status-setting1.png";
-import update from  "../../../../assets/screenshots/huly/workflow/update-field-setting.png";
-import clearing from  "../../../../assets/screenshots/huly/workflow/clearing-field.png";
+import Shot from "../../../../components/Shot.astro";
+import transitions from  "../../../../assets/screenshots/workflow/transitions-settings.png";
+import rules from  "../../../../assets/screenshots/workflow/create-rules.png";
+import field from  "../../../../assets/screenshots/workflow/required-field-setting.png";
+import status2 from  "../../../../assets/screenshots/workflow/status-setting-subtasks.png";
+import status1 from  "../../../../assets/screenshots/workflow/status-setting-parent.png";
+import update from  "../../../../assets/screenshots/workflow/update-field-setting.png";
+import clearing from  "../../../../assets/screenshots/workflow/clearing-field.png";
 
 
-Переходим из настроек проекта в раздел workflow. Выбираем из списка нужный вариант и переходим на страницу , чтобы создать переходы между статусами. 
+Переходим: Настройки -> Типы пространств -> нужный тип проекта -> Воркфлоу. Выбираем из списка нужный workflow и переходим на его страницу, чтобы создать переходы между статусами.
 
 В правом верхнем углу страницы вы увидите:
 1. Тип задачи, для которой будет применяться workflow,
 2. Кнопки для переключения формата отображения: списком, диаграмма, разделенный экран,
 3. Кнопка для экспорта workflow (экспорт файла или копирование в буфер обмена),
-4. Кнопка удаления workflow. 
+4. Кнопка удаления workflow.
+
+Импорт workflow — отдельная кнопка (значок рядом с `+`) в заголовке раздела "Воркфлоу" настроек типа проекта, а не на странице самого workflow: можно импортировать из файла или из буфера обмена.
 
 Начните создание переходов с поля "Начальные статусы" и выберите статус, который будет “точкой входа” в workflow . Затем нажмите кнопку “+” и создайте первый  переход. 
 
@@ -27,24 +29,11 @@ import clearing from  "../../../../assets/screenshots/huly/workflow/clearing-fie
 2. В поле “Откуда” выберите требуемый статус
 3. В поле “Куда” выберите требуемый статус
 4. Нажмите кнопку “Создать”, чтобы сохранить переход.
-5. Нажмите кнопку “Отмена”, чтобы отменить операцию.
+5. Нажмите кнопку “Отменить”, чтобы отменить операцию.
 
 Аналогичный образом создайте запланированное количество переходов. Все transitions отобразятся списком на странице.
 
-   <div style={{ height: "4px" }}></div>
-      <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-         <a href={transitions.src} target="_blank" rel="noopener noreferrer">
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-               <Image 
-               src={transitions} 
-               alt='Настройка переходов' 
-               inferSize
-               />
-            </div>
-         </a>
-         <p style={{ fontSize: "14px", textAlign: "center" }}>Рисунок 6 - Настройка переходов </p>
-      </div>
-   <div style={{ height: "4px" }}></div>
+<Shot src={transitions} alt="Список переходов workflow: откуда и куда ведёт каждый" />
 
 После того как были созданы все переходы, зададим правила и условия проверки.
 
@@ -53,80 +42,28 @@ import clearing from  "../../../../assets/screenshots/huly/workflow/clearing-fie
 **Для запросов** в модальном окне нажмите на  “Показать экран” и из списка выберите ранее настроенный экран (см. описание “Создаем экраны”).  При необходимости отредактировать его, нажмите “Настроить экран”.  После того как экран добавлен, сохраните изменения с помощью кнопки “Добавить”.
 
 
-   <div style={{ height: "4px" }}></div>
-      <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-         <a href={rules.src} target="_blank" rel="noopener noreferrer">
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-               <Image 
-               src={rules} 
-               alt='Настройка запросов' 
-               inferSize
-               />
-            </div>
-         </a>
-         <p style={{ fontSize: "14px", textAlign: "center" }}>Рисунок 7 - Настройка запросов </p>
-      </div>
-   <div style={{ height: "4px" }}></div>
+<Shot src={rules} alt="Правило запроса «Показать экран» с выбранным экраном" />
 
 **Для валидаторов** в модальном окне задаются 3 правила:
 
 1. Проверить данные обязательного поля
 
-Нажмите параметр “Обязательно поле” и выберите поле из списка для проверки . Сохраните внесенные изменения.  
+Нажмите параметр “Обязательное поле” и выберите поле из списка для проверки . Сохраните внесенные изменения.  
 
-   <div style={{ height: "4px" }}></div>
-      <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-         <a href={field.src} target="_blank" rel="noopener noreferrer">
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-               <Image 
-               src={field} 
-               alt='Настройка обязательного поля' 
-               inferSize
-               />
-            </div>
-         </a>
-         <p style={{ fontSize: "14px", textAlign: "center" }}>Рисунок 8 - Настройка обязательного поля </p>
-      </div>
-   <div style={{ height: "4px" }}></div>
+<Shot src={field} alt="Валидатор «Обязательное поле» с выбором поля для проверки" />
 
    
 2. Проверить статусы подзадач
 
 Нажмите на параметр “Статус подзадач” и выберите соответствующий статус для каждого типа задач. Сохраните изменения.
 
-<div style={{ height: "4px" }}></div>
-      <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-         <a href={status2.src} target="_blank" rel="noopener noreferrer">
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-               <Image 
-               src={status2} 
-               alt='Настройка статусов подзадач' 
-               inferSize
-               />
-            </div>
-         </a>
-         <p style={{ fontSize: "14px", textAlign: "center" }}>Рисунок 9 - Настройка статусов подзадач </p>
-      </div>
-   <div style={{ height: "4px" }}></div>
+<Shot src={status2} alt="Валидатор «Статус подзадач» по типам задач" />
 
 3. Проверить статусы родительских задач
 
 Нажмите на параметр “Статус родительской задачи” и выберите соответствующий статус для каждого типа задач. Сохраните изменения. 
 
-<div style={{ height: "4px" }}></div>
-      <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-         <a href={status1.src} target="_blank" rel="noopener noreferrer">
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-               <Image 
-               src={status1} 
-               alt='Настройка статусов родительских задач' 
-               inferSize
-               />
-            </div>
-         </a>
-         <p style={{ fontSize: "14px", textAlign: "center" }}>Рисунок 10 - Настройка статусов родительских задач </p>
-      </div>
-   <div style={{ height: "4px" }}></div>
+<Shot src={status1} alt="Валидатор «Статус родительской задачи» по типам задач" />
 
 **Для пост-функций** в модальном окне настраиваются 2 правила:
 
@@ -134,39 +71,13 @@ import clearing from  "../../../../assets/screenshots/huly/workflow/clearing-fie
 
 Нажмите параметр “Обновление значения поля”, выберите поле из списка и  значение, которое нужно установить. Если следует обновить значение для нескольких полей, нажмите “Добавить” и повторите алгоритм предыдущих шагов. Затем сохраните изменения.  
 
-<div style={{ height: "4px" }}></div>
-      <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-         <a href={update.src} target="_blank" rel="noopener noreferrer">
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-               <Image 
-               src={update} 
-               alt='Настройка обновлений значения поля' 
-               inferSize
-               />
-            </div>
-         </a>
-         <p style={{ fontSize: "14px", textAlign: "center" }}>Рисунок 11 - Настройка обновлений значения поля </p>
-      </div>
-   <div style={{ height: "4px" }}></div>
+<Shot src={update} alt="Пост-функция «Обновление значения поля»" />
 
 2. Очистка полей
 
 Нажмите параметр “Очистка полей”, выберите поле для очистки из списка и сохраните изменения. 
 
-<div style={{ height: "4px" }}></div>
-      <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-         <a href={clearing.src} target="_blank" rel="noopener noreferrer">
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-               <Image 
-               src={clearing} 
-               alt='Настройка очистки полей' 
-               inferSize
-               />
-            </div>
-         </a>
-         <p style={{ fontSize: "14px", textAlign: "center" }}>Рисунок 12 - Настройка очистки полей </p>
-      </div>
-   <div style={{ height: "4px" }}></div>
+<Shot src={clearing} alt="Пост-функция «Очистка полей»" />
 
 Все заданные правила можно отредактировать или  удалить, если нажать на “три точки” в соответствующей карточке и выбрать требуемое действие. После того как все правила внесены, нажмите “Ок”, чтобы сохранить изменения. Настройка workflow завершена.
 
@@ -174,4 +85,4 @@ import clearing from  "../../../../assets/screenshots/huly/workflow/clearing-fie
 
 Нельзя выбрать переход из одного и того же статуса в такой же, например Backlog → Backlog.
 
-Нельзя создать дубль перехода, если подобный уже существует. 
+Нельзя создать дубль перехода, если подобный уже существует: дублем считается переход с тем же статусом "Куда" при пересечении статусов "Откуда" (в том числе если оба перехода заданы как "из любого статуса"). 

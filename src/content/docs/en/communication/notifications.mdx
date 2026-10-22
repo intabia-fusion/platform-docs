@@ -3,22 +3,27 @@ title: Notifications
 description: Learn how to control the kinds of notifications you'll receive from Intabia Platform.
 ---
 
-import { Image } from 'astro:assets';
-import notificationSettings from '../../../../assets/screenshots/huly/settings-notifications.png';
+import Shot from "../../../../components/Shot.astro";
+import notifMain from "../../../../assets/screenshots/communication/notifications-main-en.png";
+import notifChatGroup from "../../../../assets/screenshots/communication/notifications-chat-group-en.png";
 
-Access your notification settings by clicking your profile icon in the bottom left corner and selecting `Settings`. From the settings menu, select `Notifications`.
+Open your notification settings by clicking your profile icon in the bottom left corner and selecting `Settings`, then select `Notifications` from the settings menu.
 
-## Sound and appearance
+## Appearance and desktop
 
-At the top of the settings menu, select `Sound and appearance` to set some global settings for notifications. Here, you can toggle notification sound, icon bounce and badge, or turn off all notifications entirely.
+The notification settings menu has four sections with global settings: `General`, `Webpushes`, `Appearance` (the unread badge on the chat icon) and `Desktop`. In the `Desktop` section, the main `Show notifications` toggle enables desktop app notifications; while it's off, the notification sound is unavailable. The dock icon bounce and the unread badge count toggle independently.
 
-<Image 
-src={notificationSettings} 
-alt='Create issue' 
-inferSize
+The `General` section has three delivery channels:
+* **Inbox** — a card in the "Inbox" section (always on, no toggle);
+* **Push** — a desktop notification;
+* **Sound** — a sound alert for events. Sound depends on push: turning sound on also turns push on, and turning push off also turns sound off.
 
-/>
+<Shot src={notifMain} alt="Notification settings, General section: the Push and Sound toggles" />
 
-## Notification settings
+## Settings by group
 
-For more granular control over the kinds of notifications you'll receive, select a space or object from the list in the left sidebar. There, you can select which kinds of updates you'd like to receive notifications for, as well as how you'd like to receive them — in your inbox, by email, and/or push.
+For finer control, pick a group from the list in the left sidebar: `Notifications`, `Persons`, `Chat`, `Issues`, `Documents`, `Action Items`, `Office` — the list of groups depends on what's enabled in your workspace. Inside a group, each event type has its own toggles for inbox, push and sound delivery — turning off inbox also turns off push and sound for that type.
+
+For example, the `Chat` group has four types: `Join channel`, `Channel messages`, `Direct message` and `Thread message`.
+
+<Shot src={notifChatGroup} alt="The Chat group: Join channel/Channel messages/Direct message/Thread message types with Inbox/Push/Sound toggles" />

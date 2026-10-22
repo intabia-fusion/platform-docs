@@ -3,9 +3,8 @@ title: Related and blocking issues
 description: Learn how to create an issue in your Intabia Platform workspace.
 ---
 
-import { Image } from 'astro:assets';
-import relatedIssue from '../../../../assets/screenshots/huly/tracker-related-issue.png';
-import filteredIssues from '../../../../assets/screenshots/huly/tracker-filter-issues.png';
+import Shot from "../../../../components/Shot.astro";
+import relatedIssue from '../../../../assets/screenshots/task-tracking/related-issues-related-en.png';
 
 ## What are related issues?
 
@@ -19,16 +18,9 @@ There are a few options available for connecting related issues in Intabia Platf
 
 ## Referencing an existing issue
 
-On the details page for any issue, open the dropdown menu and select `Relations`, then `Reference another issue`. From here, you can select an any issue from the list of suggestions, or search for a specific issue by typing in the search bar. After you've selected an issue, you'll see it appear in the "Related to" field in the issue details, where you can click to navigate directly to the related issue.
+On the details page for any issue, open the dropdown menu and select `Relations`, then `Reference another issue`. From here, you can select an any issue from the list of suggestions, or search for a specific issue by typing in the search bar — the search only matches issues. After you've selected an issue, you'll see it appear in the "Related to Issues" block below the issue description, where you can click to navigate directly to the related issue.
 
-> **Note:** You can also choose to reference other objects in Intabia Platform, like people or documents. These features will be covered separately in a future guide.
-
-<Image 
-src={relatedIssue} 
-alt='Related issue' 
-inferSize
-
-/>
+<Shot src={relatedIssue} alt='Related issue' />
 
 ## Creating a new related issue
 
@@ -40,17 +32,14 @@ This will open a dialog where you can fill out the details for the new issue. On
 
 There may be cases where one issue is dependent on another, and you want to indicate that one issue should be resolved before the other one is completed. In these cases, you can mark one issue as "blocking" the other.
 
-Open the dropdown menu on any issue detail page and select `Relations`, then choose `Mark as blocked by`. Then, select the blocking issue from the menu. This will add the issue to the "Blocked by" field in the issue details.
+Open the dropdown menu on any issue detail page and select `Relations`, then choose `Mark as blocked by`. Then, select the blocking issue from the menu. This will add the issue to the "Blocked by Issues" block below the issue description.
 
 > **Note:** The current implementation does not actually prevent a blocked issue from being marked as complete before the blocking issue, but future versions of Intabia Platform will include a more complete development of this feature. In the meantime, you can use this feature as a visual indicator of dependencies between issues. Just like any other issue property, blocking can also be used when sorting issues in your tracker (see below).
 
+## Default project for related issues
+
+For spaces that aren't projects (for example, a document Teamspace or a Drive), you can set a project that related issues created from that space will be placed in. Open Settings -> `Related issues` (available to maintainers and above) and set a target project for the class or a specific space.
+
 ## Viewing related and blocked issues
 
-In your tracker, you can filter issues by their related or blocking status by opening the `Filter` menu and selecting either "Related to" or "Blocked by". This will display only the issues that are related to or blocked by the selected issue. For example, below I've filtered all issues in the tracker by those related to an issue for checking color contrast:
-
-<Image 
-src={filteredIssues} 
-alt='Issues filtered by related status' 
-inferSize
-
-/>
+The issue list's `Filter` menu has "Related to" and "Blocked by" entries for filtering by a specific issue.

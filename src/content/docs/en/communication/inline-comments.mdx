@@ -1,60 +1,35 @@
 ---
 title: Inline comments
-description: Learn how to add and manage inline comments on documents and issue descriptions.
+description: Learn how to add and discuss inline comments on document and issue description text.
 ---
 
-import { Image } from 'astro:assets';
-import inlineCommentsDocument from '../../../../assets/screenshots/huly/inline-comments-document.png';
-import inlineCommentsIssue from '../../../../assets/screenshots/huly/inline-comments-issue.png';
+import Shot from "../../../../components/Shot.astro";
+import selectComment from "../../../../assets/screenshots/communication/inline-comments-select-en.png";
 
-Inline comments offer a way to add notes, feedback or questions to specific parts of documents, issue descriptions, or anywhere else the comment icon is available in the toolbar.
+Inline comments let you add a note, a question or feedback to a specific spot in the text — in a document or an issue description — without starting a separate chat message.
 
-Inline comments are different from comments found in the Activity section at the bottom of a document, issue or other Intabia Platform object. These are the key differences:
+Inline comments differ from comments in the "Activity" section at the bottom of a document, issue or other platform object:
 
-* **Purpose:** Comments in the Activity section are more useful when adding notes or feedback to the document or object as a whole. Inline comments are more useful when you need to point to a specific word, phrase or section of content.
-* **Chat integration:** Comments in the Activity section are also linked to Chat, Inbox and other parts of the platform. Inline comments are not linked to any other part of the workspace.
-* **Permanence:** Comments in the Activity section are better suited for discussions that you'll want to hang on to, because they're usually part of the activity surrounding the object they're attached to. Inline comments are better for quick notes, feedback or questions, which can be deleted completely once they're resolved.
+* **Purpose.** Activity comments work best for notes about the document or object as a whole. Inline comments are for pointing at a specific word, phrase or passage of text;
+* **Link to chat.** Activity comments are connected to Chat, Inbox and notifications. Inline comments aren't linked to the rest of the platform — they don't trigger notifications today;
+* **Lifespan.** Activity comments stay part of the object's history. Inline comments are meant for a short discussion: once the question is settled, the whole thread can be deleted at once.
 
-## Adding inline comments
+## Adding a comment
 
-To add an inline comment, highlight any text and click the comment icon in the floating toolbar (it looks like a speech bubble). Enter your comment and submit.
+Select some text — in a document or an issue description — and click the comment icon on the floating toolbar that appears (it sits next to the text formatting icons: headings, bold, italic and the rest).
 
-To reply to a comment, simply enter your reply and submit. Your comment will be added to the thread.
+<Shot src={selectComment} alt="Selected text in a document with the floating toolbar and the comment icon on the right" />
 
-> **Note:** At this time, inline comments are not linked to system notifications. Check back for updates as this feature continues to be developed.
+Type your comment and submit it — a comment thread appears next to the selection. To reply, type in the field at the bottom of the thread and submit — your reply is added to the same thread.
 
-## Viewing inline comments
+Text with a comment is highlighted in the document. When the window is wide enough, comment threads show up next to the text; in a narrower window, a thread only shows when you click the highlighted text.
 
-Text that has an associated comment will appear highlighted on the page.
+## Resolving a thread
 
-#### Documents
+To resolve a discussion, hover over the first comment in the thread (at the top) and click the checkmark icon — `Resolve`.
 
-<Image
-src={inlineCommentsDocument}
-alt='Inline comments alongside document content'
-inferSize
+> **Warning:** Resolving a thread **permanently deletes** every comment in it along with the text highlight — this cannot be undone.
 
-/>
+## Editing and deleting
 
-The appearance of inline comments depends on the window size. When the window is wide enough, you'll see all of the comments on a document on the right side of the page. When the window is narrower, you'll need to click on the highlighted text to see the associated comments.
-
-#### Issue descriptions
-
-<Image
-src={inlineCommentsIssue}
-alt='Inline comment on issue description'
-inferSize
-
-/>
-
-To view inline comments on issue descriptions, click on the highlighted text.
-
-## Resolving inline comments
-
-To resolve a comment thread, hover over the parent comment (at the top of the thread) and click the checkmark icon.
-
-> **Note:** Resolving a comment will permanently delete all comments in the thread.
-
-## Editing and deleting inline comments
-
-To edit or delete your own comment, hover over the comment and click on the breadcrumb menu. Then, select `Edit` or `Delete`.
+To edit or delete your own comment, hover over it and open the actions menu. `Edit` and `Delete` are available there; you can't edit someone else's comment.

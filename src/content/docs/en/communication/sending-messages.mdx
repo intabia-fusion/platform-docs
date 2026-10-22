@@ -1,93 +1,105 @@
 ---
 title: Sending messages
-description: Learn how to exchange messages with team members through direct messages, group chats and channels.
+description: Learn how to exchange messages with team members through channels, direct messages and group chats.
 ---
 
-import LocalVideo from "../../../../components/LocalVideo.astro";
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+import ScreenshotSteps from "../../../../components/ScreenshotSteps.astro";
+import Shot from "../../../../components/Shot.astro";
+import channelOverview from "../../../../assets/screenshots/communication/sending-messages-channel-en.png";
+import createMenu from "../../../../assets/screenshots/communication/sending-messages-create-menu-en.png";
+import newChannelDialog from "../../../../assets/screenshots/communication/sending-messages-new-channel-en.png";
+import newDmDialog from "../../../../assets/screenshots/communication/sending-messages-new-dm-en.png";
+import channelSettings from "../../../../assets/screenshots/communication/sending-messages-settings-en.png";
 
-<LocalVideo id='I_ABiXcgMNw' posterQuality='max' />
+Intabia Platform builds chat straight into your workspace, so you don't need a separate app to talk to your team. Chat lets you exchange messages in real time through channels and direct messages.
 
-Intabia Platform offers many options for team members to communicate directly within the platform without the need for an external app. The chat functionality allows team members to exchange messages in real time through direct messaging and shared channels. 
-
-This guide covers how to exchange messages with your team using Chat. Chat is also integrated with the rest of your workspace, so documents, issues, pull requests and other workspace objects can be accessed alongside your other conversations. For more on how Chat integrates other workspace activity, see our guide on [activity tracking in chat](/en/communication/chat-activity).
+This guide covers how to exchange messages with your team in Chat. Chat also surfaces activity from the rest of your workspace — documents, issues and other objects — alongside your regular conversations. For more, see [activity tracking in chat](/en/communication/chat-activity).
 
 ## Ways to chat
 
 There are a few different ways to chat with team members in Intabia Platform:
-* **Channels** - Public or private chatrooms based on topics or themes
-* **Direct messages** - Instant messaging between individuals or groups
-* **Other workspace objects** - From Chat, you can access all activity on documents, issues, files and more. Read more in our guide on [activity tracking in chat](/en/communication/chat-activity).
+* **Channels** — public or private chat rooms based on a topic or area of work;
+* **Direct messages** — one-on-one or small-group conversations;
+* **Other workspace objects** — from Chat, you can access all activity on documents, issues and files. Read more in [activity tracking in chat](/en/communication/chat-activity).
 
 **Icons and indicators:**
-* A red dot beside the chat indicates an unread message.
-* A green dot next to a user's avatar indicates that they are online and have their workspace open.
+* a number next to a channel or chat shows how many messages are unread: red if they triggered a notification, gray if the channel is set to mentions-only or muted;
+* a green dot next to a member's avatar means they're currently online.
 
-## Managing chat channels
+<Shot src={channelOverview} alt="Open «development» channel with a message list and a thread reply" />
 
-Create a new channel by clicking the `+` button at the top of the Chat sidebar and selecting `New channel`. Enter a name and topic for your channel and select either `Public` or `Private` for visibility. Click `Create`.
+## Managing channels
 
-> **Note:** Channels set to `Private` are still visible in the channels list, but users will need to request access to join. To create chats that are not visible to the rest of the team, create a group direct message with the included members (see below).
+To create a channel, click the pencil icon at the top of the Chat sidebar and select `New channel`. Enter a channel name — the `Create` button stays disabled without it — optionally add a topic, pick a visibility — `Public` or `Private` — then click `Create`.
 
-After you've created your channel, there will be a few additional settings available in the right sidebar:
+> **Note:** Private channels are visible only to their members — they don't appear in the channels list for anyone else, and there's no way to request access. To add someone to a private channel, a member or owner has to add them directly.
 
-* **Name** - Set the name for the channel.
-* **Private** - Private channels are visible to members only.
-* **Auto join** - Toggle this setting to automatically add all new workspace members to this channel. This will not add existing workspace members; only members who join _after_ this setting is enabled will be added to the channel.
-* **Members** - Add or remove members from the channel.
-* **Topic** - Edit the topic (description) for the channel.
+<ScreenshotSteps>
+<Tabs>
+  <TabItem label="1. Create menu">
+    <Shot src={createMenu} alt="Create menu with «New channel», «New direct chat» and «Talk to the assistant»" />
+  </TabItem>
+  <TabItem label="2. New channel">
+    <Shot src={newChannelDialog} alt="«New channel» dialog with a topic field and a visibility toggle" />
+  </TabItem>
+</Tabs>
+</ScreenshotSteps>
 
-To leave a channel, hover over the channel name in the sidebar and click the settings menu, then click `Leave channel`, or navigate to "Channels", right-click on the channel name and select `Leave`.
+After you create a channel, its settings panel (the settings icon in the channel header) opens on the right with these fields:
 
-To archive a channel, you must be owner or creator of the workspace. Archive a channel either by selecting `Archive channel` from the settings menu, or right-clicking the channel name in "Channels" and selecting `Archive channel`.
+<Shot src={channelSettings} alt="Channel settings panel: topic, auto join, name, private, creator and the member list" />
 
-> **Note:** Two channels are created by the system when you create the workspace: `#general` and `#random`. In order to archive these system-generated channels, you must be a Spaces Admin. For more on permissions, including how to set Spaces Admins, see our guide on [roles](/en/advanced-settings/roles).
+* **Topic** — the channel's topic or description;
+* **Auto join** — toggle this to automatically add every new workspace member to the channel. It won't add existing members; only people who join the workspace _after_ this setting is enabled will be added;
+* **Name** — the channel's name;
+* **Private** — private channels are visible to members only;
+* **Created by** — who created the channel (the channel owner by default);
+* **Add members** and the member list.
 
-Star a channel by selecting `Star` in the settings menu. Starred channels will appear at the top of the list in the left sidebar.
+To leave a channel, hover over its name in the sidebar, open the `...` menu and click `Leave channel`, or open "Channels & DMs", right-click the channel and select `Leave`.
 
-## Creating direct and group messages
+A channel can be archived by its owner (the creator, by default), by the workspace owner, or by a member whose role grants the right to archive spaces. Open "Channels & DMs", right-click the channel in the list and select `Archive channel` — the channel's own settings menu doesn't have this option.
 
-Create a new direct message by clicking the `+` button at the top of the Chat sidebar and selecting `New direct chat`. Select the user you'd like to chat with and click `Create`. Selecting more than one user will create a group chat.
+> **Note:** Two channels are created by the system when the workspace is created — `#general` and `#random`. They don't have a separate owner, so only the workspace owner or a member with that role right can archive them. For more on permissions, see [roles](/en/advanced-settings/roles).
 
-To close a direct or group message and remove it from your sidebar, hover over the chat in the sidebar and open the settings menu, then click `Close conversation`. Closing the conversation does not remove the message history, so your existing messages will still be available when you reopen the chat.
+To star a channel, open its `...` menu and select `Star`. Starred channels appear in the "Starred" section at the top of the sidebar. A direct or group chat can be starred the same way.
 
-## Chat options
+`Edit notifications` in the same menu opens the channel or chat's notification mode: `All notifications`, `Just mentions` or `Mute`. In both muted modes, messages still pile up as unread (a gray count next to the chat in the sidebar) but without a notification or sound; `Just mentions` makes an exception for messages that `@` mention you — those still notify you.
 
-Like everywhere else in your workspace, chat messages support markdown formatting, attachments, mentions, emojis and text templates. 
+## Direct and group messages
 
-Hover over any message to add a reaction, pin it to the top of the chat, or reply in a chat thread:
+To start a direct message, click the pencil icon and select `New direct chat`. Pick one or more people and click `Next`, then click `Create` on the next step. Picking more than one person creates a group chat.
 
-<div style="position: relative; padding-top: 56.25%;">
-  <iframe
-    src="https://customer-davn16od7sue0s1k.cloudflarestream.com/fa5b5d15be59fd1a286bd6ffd68f4847/iframe?poster=https%3A%2F%2Fcustomer-davn16od7sue0s1k.cloudflarestream.com%2Ffa5b5d15be59fd1a286bd6ffd68f4847%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600"
-    loading="lazy"
-    style="border: none; position: absolute; top: 0; left: 0; height: 100%; width: 100%;"
-    allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-    allowfullscreen="true"
-  ></iframe>
-</div>
+<Shot src={newDmDialog} alt="«Select users» dialog with a list of coworkers and a «Next» button" />
 
-Bookmark any message to save it for later. See all saved messages in the `Saved` tab in the Chat sidebar:
+To hide a direct or group chat from the sidebar, hover over it, open the `...` menu and select `Hide from chat list`. Hiding doesn't remove the message history — the chat reappears in the sidebar as soon as it gets a new message. The platform never auto-hides direct messages, group chats, channels or starred chats on its own — it only hides document, issue and other object chats from Chat once they've gone 14 days without a new message and have no unread notifications.
 
-<div style="position: relative; padding-top: 56.25%;">
-  <iframe
-    src="https://customer-davn16od7sue0s1k.cloudflarestream.com/fd945e137ccc1b348de4c5872c6a5109/iframe?poster=https%3A%2F%2Fcustomer-davn16od7sue0s1k.cloudflarestream.com%2Ffd945e137ccc1b348de4c5872c6a5109%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600"
-    loading="lazy"
-    style="border: none; position: absolute; top: 0; left: 0; height: 100%; width: 100%;"
-    allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-    allowfullscreen="true"
-  ></iframe>
-</div>
+## Message options
 
-## Translating messages
+Like everywhere else in your workspace, messages support markdown formatting, attachments, `@` mentions, emoji and text templates.
 
-To translate a message, simply hover over the message and click the translate icon. This will translate the message into the language you have selected for your workspace.
+Hover over any incoming message to:
+* add a reaction;
+* reply in a thread;
+* reply in the chat;
+* save the message;
+* translate it into your interface language (available if the workspace has an AI bot configured for translation). To restore the original text, hover again and click `Show original`.
 
-To restore the original message, hover again and click 'Show original'.
+The `⋮` icon on a message opens more actions: `Forward message`, `Copy link`, `Pin` (a pinned message is shown at the top of the chat), and for your own messages, also `Edit` and `Delete`. A member with the "Maintainer" role or higher can delete anyone's message.
+
+> **Note:** All saved messages are available in the `Saved` tab in the Chat sidebar.
 
 ## Chatting in the sidebar
 
-Any chat can be moved to the right sidebar by clicking the "Open in sidebar" button in the top right corner of the chat. You can open multiple threads, channels and DMs here for easy access as you navigate the platform. The chat panel can be hidden by clicking the chat icon in the far right menu.
+Any channel, direct message or thread can be moved to the right sidebar by clicking `Open in sidebar` in the top right corner of the chat. This keeps several conversations within reach while you work elsewhere in the platform. The chat panel can be hidden by clicking the chat icon in the far right menu.
 
-Your calendar and virtual office can also be accessed through the right sidebar. Check it out!
+Your calendar and virtual office are also available through the right sidebar.
 
-<LocalVideo id="u80x-5HGmiY" posterQuality="max" />
+## Quick navigation in Chat
+
+At the top of the Chat sidebar you'll find:
+* **Threads** — a list of threads you've taken part in;
+* **Saved** — all your saved messages;
+* **Browser** — search across messages (`Messages`/`Files` tabs, filters by author, place and date);
+* **Channels & DMs** — every channel and direct message, with its topic, visibility and member count.

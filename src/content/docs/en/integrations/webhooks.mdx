@@ -80,7 +80,7 @@ Instead of `description` (on issues) and `content` (on documents) you may send a
 How references are resolved:
 
 - A **project** (`issue:create`) is looked up by project identifier, and an **issue** (`issue:update`, `issue:comment`, `issue:time_report`, and `parent` for `issue:create`) is looked up by its own identifier like `FUSIO-42`.
-- The **assignee** is looked up by email as a verified social identity on a contact.
+- The **assignee** is looked up by email as a social identity on a contact.
 - A **channel** (`chat:post`), a **teamspace** (`doc:create`) and a **document** (`doc:update`, and `parent` for `doc:create`) are only accepted as an internal id: a name or a title can be renamed, an id cannot. The easiest way to get one is **Examples → Incoming request**, with the target you need picked there.
 - A **status** (`issue:update`) is matched by name, case-insensitively, among the statuses available to the issue's project's task type.
 - A **time report** (`issue:time_report`): `employee` is looked up by email just like `assignee`; on an edit, `id` is checked against the issue from `issue`, so another issue's entry cannot be touched. The id comes back from the create call (`reportId`) and rides along in the outgoing `issue.time_reported` event.
@@ -109,7 +109,7 @@ Response:
 }
 ```
 
-`status` is `queued`, `done`, or `failed`. `result` is present only when `done`, and holds whatever the operation returned (for example, `identifier` for `issue:create`/`issue:update`, `messageId` for `issue:comment`/`chat:post`, `docId` for `doc:create`/`doc:update`). `error` is present only when `failed` and holds the failure reason. Any active key from the same workspace can check a job's status — it doesn't have to be the key that created the job.
+`status` is `queued`, `done`, or `failed`. `result` is present only when `done`, and holds whatever the operation returned (for example, `identifier` for `issue:create`/`issue:update`, `messageId` for `issue:comment`/`chat:post`, `docId` for `doc:create`/`doc:update`). `error` is present only when `failed` and holds the failure reason. Only the key that created the job can check its status; any other key (even an active one from the same workspace) gets `not_found`.
 
 Job records are kept for about a day — after that, `GET job/{id}` returns `not_found` even for a job that actually ran.
 
@@ -119,8 +119,8 @@ An error response is always JSON in the shape `{ "error": "<code>", "message": "
 
 | `error` | HTTP | Meaning |
 |---|---|---|
-| `unauthorized` | 401 | The key is missing, unknown, revoked, expired, issued for a different workspace, or does not have incoming webhooks enabled. The response is deliberately identical in all of these cases, so it doesn't hint at which keys exist. |
-| `forbidden` | 403 | The key doesn't grant the operation named in `action` — it wasn't selected when the key was issued. The same code is used when the target lies outside the spaces the key is limited to. |
+| `unauthorized` | 401 | The key is missing, unknown, revoked, expired, or issued for a different workspace. The response is deliberately identical in all of these cases, so it doesn't hint at which keys exist. |
+| `forbidden` | 403 | The key does not have incoming webhooks enabled. The same code is used when the key doesn't grant the operation named in `action` (it wasn't selected when the key was issued), or when the target lies outside the spaces the key is limited to. |
 | `invalid_payload` | 400 | The body is missing `action` or the target field, or `action` isn't one of the known operations. |
 | `payload_too_large` | 413 | The request body exceeds 1 MB. |
 | `rate_limited` | 429 | The rate limit was exceeded. |
@@ -128,7 +128,7 @@ An error response is always JSON in the shape `{ "error": "<code>", "message": "
 | `service_unavailable` | 503 | The account service is temporarily unavailable and the key could not be verified. The only intake error worth retrying. |
 | `internal_error` | 500 | An internal error while accepting the request. |
 
-Checks run in order, and each one only runs once the previous one passed: per-key rate limit → the key itself → request body and `action` → permission for the operation → idempotency → target lookup → enqueue. The one exception is `413`: an oversized body is rejected before the request reaches this chain at all.
+Checks run in order, and each one only runs once the previous one passed: per-key rate limit → the key itself → the key's incoming-webhooks flag → request body and `action` → permission for the operation → idempotency → target lookup → enqueue. The one exception is `413`: an oversized body is rejected before the request reaches this chain at all.
 
 The target is looked up before the job is queued on purpose: a typo in a project identifier comes back as a `404` right away, instead of as a failed job a minute later. If the lookup itself fails — the transactor is down, say — the job is accepted anyway and the target is checked when it runs.
 
@@ -160,7 +160,7 @@ Deduplication doesn't compare request bodies — sending the same `Idempotency-K
 
 - Errors at the ingest step (`401`, `403`, `400`, `404`, `413`, `429`) are final. Retrying the same request unchanged won't help — fix the key, the body, the permissions, the target, or wait out the rate-limit window. Only `503` and `500` are worth retrying.
 - After a `202`, processing is asynchronous. If the operation itself fails permanently (invalid references in the body, or the key lacking rights for the target space), the job is marked `failed` right away, with no retries — the reason is visible in `error` via `GET job/{id}`. The exception is a rejection from an internal rate limit — that job is retried on the schedule below.
-- Transient failures (network issues, internal services being unavailable) are retried on a schedule: 30 seconds, then 1, 2, 4, 8 minutes — up to 5 attempts in total. If the operation still fails after that, the job is marked `failed` for good.
+- Transient failures (network issues, internal services being unavailable) are retried on a schedule: 30 seconds, then 1, 2, 4, 8 minutes — up to 5 retries (6 attempts total). If the operation still fails after that, the job is marked `failed` for good.
 
 
 # Rules for a foreign payload format
@@ -178,7 +178,7 @@ There's also a path-key variant — `POST /_webhook/api/v1/webhook/k/{key}/in` �
 
 ## Where to configure
 
-Rules live on a specific API key. In **Settings → API + Webhooks**, the key's row has a **Rules** button; it shows up only when the key isn't revoked, has incoming webhooks enabled, and was issued by you. Other people's keys and rules aren't visible, not even to the workspace owner.
+Rules live on a specific API key. In **Settings → API + Webhooks**, the key's row has a **Rules** button; it shows up only when the key isn't revoked, isn't expired, has incoming webhooks enabled, and was issued by you. Other people's rules aren't visible, not even to the workspace owner.
 
 <Image src={webhookRules} alt='Key rules list' inferSize />
 
@@ -296,7 +296,7 @@ Deliveries are signed per [Standard Webhooks](https://www.standardwebhooks.com/)
 | `webhook-timestamp` | Send time, Unix seconds |
 | `webhook-signature` | Space-separated signatures, each `v1,<base64>` |
 | `X-Webhook-Delivery-Id` | The same delivery id, for your logs |
-| `X-Webhook-Attempt` | Attempt number, starting at 0 |
+| `X-Webhook-Attempt` | Attempt number, starting at 1 |
 
 To verify: build the string `{webhook-id}.{webhook-timestamp}.{request body}`, take HMAC-SHA256 with the key — the bytes of the secret after the `whsec_` prefix, base64-decoded — and compare the base64 result against one of the signatures in the header.
 
@@ -332,7 +332,7 @@ An empty whitelist means "every private space is excluded": an event from a priv
 ## Retries and auto-disable
 
 - A delivery is retried on `408`, `409`, `425`, `429` and any `5xx`, and on network errors and timeouts (10 seconds per attempt).
-- Schedule: 30 seconds, 1, 2, 4, 8 minutes — up to 5 attempts; after that the delivery is failed.
+- Schedule: 30 seconds, 1, 2, 4, 8 minutes — up to 5 retries (6 attempts total); after that the delivery is failed.
 - Three failed deliveries in a row disable the address and mail the workspace owner. A successful delivery resets the counter.
 - Up to 64 KB of the response is read and the body is ignored — only the status code matters.
 

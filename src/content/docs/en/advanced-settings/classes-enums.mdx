@@ -11,18 +11,20 @@ To access class settings, navigate to settings and click `Classes` in the `WORKS
 
 ## Customizing class properties
 
-Currently, only the `Contact` and `Task` classes can be customized.
+You can customize properties for the `Contact` and `Task` classes, as well as for spaces (projects, channels, teamspaces, drives).
 
 To add a property, click the `+` button. Choose from the following property types:
 
 - URL
-- String - for single-line text
-- Boolean - select Yes, No, or N/A
+- Text - for single-line text
+- Checkbox - select Yes, No, or N/A
+- Id
 - Number
 - Date
-- Ref - (not yet implemented)
-- Array - (not yet implemented)
-- Enum - select from a list of options (see below)
+- Reference - a link to another object
+- Multi-Select - multiple values of the chosen type
+- Markup - formatted text
+- Select - select a value from a list of options (see below)
 
 You'll see that your new property will now appear on any object belonging to that class.
 
@@ -34,7 +36,7 @@ Enums are a type of property that allows you to select from a list of options. F
 
 To create an enum, navigate to Settings > Enums and click the `+ Create enum` button. Add options and click `Save`.
 
-You can also create enums directly from the Classes settings. After creating a new property with the type `enum`, use the `+` button to create a new enum for that class.
+You can also create enums directly from the Classes settings. After creating a new property with the type `Select`, use the `+` button to create a new enum for that class.
 
 ## Example use-case
 

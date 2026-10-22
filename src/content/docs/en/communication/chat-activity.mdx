@@ -3,28 +3,35 @@ title: Activity tracking in chat
 description: Learn how to keep track of workspace activity within chat.
 ---
 
-In Intabia Platform Chat, your team can communicate through direct messaging and group chat channels and collaborate on projects and resources. This guide covers how to view and track workspace activity within chat, including documents, issues, pull requests and other workspace objects. For more on sending chat messages through channels and DMs, see our guide on [sending messages](/en/communication/sending-messages).
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+import ScreenshotSteps from "../../../../components/ScreenshotSteps.astro";
+import Shot from "../../../../components/Shot.astro";
+import objectTask from "../../../../assets/screenshots/communication/chat-activity-task-en.png";
+import objectDocument from "../../../../assets/screenshots/communication/chat-activity-document-en.png";
+
+In Intabia Platform Chat, your team talks through channels and direct messages, and also sees activity on documents, issues and other workspace objects right alongside regular conversations. For sending messages through channels and DMs, see [sending messages](/en/communication/sending-messages).
 
 ## Viewing workspace activity in chat
 
-Documents, issues and other workspace objects appear in Chat for all associated team members, so members can see updates, discuss details and make decisions alongside the rest of their chat conversations.
+The left sidebar of Chat has sections for "Documents", "Issues" and sections for other object types in your workspace. They show objects you've created, are assigned to or a collaborator on, or have been mentioned in.
 
-In the left sidebar of your chat, you'll find sections labeled `Documents`, `Issues`, and any other task types you've created. These sections will display all of the associated objects that you've either created, been assigned, or been mentioned in.
+Comments you add in the "Activity" section of an issue, document or other object show up in its chat in the left sidebar too — and the other way around.
 
-Outside of Chat, you'll notice that many objects in Intabia Platform (like issues and documents) have an Activity section where you can have discussions through comments. Comments that are added here in the Activity section will also appear in the chat associated with that object.
+### Viewing an object
 
-### Filtering activity
+When you select a workspace object (an issue, a document, etc.) in the Chat sidebar, it doesn't open as a chat thread — it opens straight into a full view, with all its fields (for an issue, with an attributes panel on the right) and its own activity.
 
-After opening a workspace object in Chat, use the filter button in the top right corner to filter for the specific activity you want to see. For example, you can filter to only see comments to create a chat-like view of all of the discussion related to that object. Or, filter by attributes to only see changes to the object details without comments.
+<ScreenshotSteps>
+<Tabs>
+  <TabItem label="1. Issue">
+    <Shot src={objectTask} alt="Issue APP-18 opened from chat: description, activity and the attributes panel on the right" />
+  </TabItem>
+  <TabItem label="2. Document">
+    <Shot src={objectDocument} alt="Document «Glossary» opened from chat: content and activity, with no attributes panel" />
+  </TabItem>
+</Tabs>
+</ScreenshotSteps>
 
-### Viewing object details
+## Mentioning objects in chat
 
-Open the right sidebar to view the details of the object you're viewing. This provides a quick overview of the object's status, assignee, due date and other relevant details without leaving the chat view. From here, you can click the expand icon to open a full view of the object.
-
-### Syncing with GitHub
-
-If you've connected a project to GitHub, you'll see a special `Pull Requests` section in your chat sidebar. This section will display all of the pull requests associated with your project, and you can open any pull request to see the activity history and comments. Just like comments and activity on the task itself, anything added here in the chat will sync with GitHub.
-
-## Mentioning objects in Chat
-
-When you use the `@` symbol to mention an object in a Intabia Platform chat channel or DM, your message will automatically appear in the Activity section of that object. These mentioned issues will only be visible to the members of the chat channel or DM, and will not be visible to other members of the workspace. For example, if you and a colleague have a private chat about an issue in your DMs, you'll see the messages that include the `@` tag in the Activity section of that issue, but other members of the workspace won't be able to see it.
+When you mention an object with `@` in a channel or direct message, that message automatically appears in the "Activity" section of the mentioned object. A mention from a direct message or a private channel is visible only to its members; a mention from a public channel is visible to every workspace member. For example, if you discuss an issue in a direct message with a colleague, the messages with the `@` mention appear in that issue's activity, but other workspace members won't see them.

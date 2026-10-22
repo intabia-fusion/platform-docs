@@ -82,10 +82,8 @@ export default defineConfig({
             label: 'Русский',
             lang: 'ru',
           },
-          // en: {
-          //   label: 'English',
-          //   lang: 'en',
-          // },
+          // English is not published yet; DOCS_EN=1 turns it on for a local check (pnpm dev / pnpm build).
+          ...(process.env.DOCS_EN === '1' ? { en: { label: 'English', lang: 'en' } } : {}),
         },
         sidebar: [
           {
@@ -320,18 +318,18 @@ export default defineConfig({
                 link: '/task-tracking/issue-templates/',
               },
               {
-                label: 'Создание активностей',
+                label: 'Создание действий',
                 translations: { en: 'Creating action items' },
                 link: '/task-tracking/creating-action-items/',
               },
               {
-                label: 'Планирование активностей',
+                label: 'Планирование действий',
                 translations: { en: 'Scheduling action items' },
                 link: '/task-tracking/scheduling-action-items/',
               },
               {
                 label: 'Отчеты по времени',
-                translations: { en: 'Issue templates' },
+                translations: { en: 'Time reports' },
                 link: '/task-tracking/time-reports/',
               }
             ],
@@ -343,34 +341,34 @@ export default defineConfig({
           items: [
               {
                 label: 'Что такое workflow?',
-                translations: { elabeln: 'What is workflow?' },
+                translations: { en: 'What is a workflow?' },
                 link: '/workflow/defining-workflow/',
-              },     
+              },
               {
                 label: 'Как настроить  workflow?',
-                translations: { en: 'create workflow' },
+                translations: { en: 'Create workflow' },
                 link: '/workflow/create-workflow/',
-              },     
+              },
               {
                 label: 'Установка статусов',
-                translations: { en: 'create statuses' },
+                translations: { en: 'Create statuses' },
                 link: '/workflow/create-statuses/',
-              },  
+              },
                 {
                 label: 'Создание экранов',
-                translations: { en: 'create screens' },
+                translations: { en: 'Create screens' },
                 link: '/workflow/create-screens/',
-              },     
+              },
                 {
                 label: 'Настройка правил и переходов по статусам',
-                translations: { en: 'rules and transitions settings' },
+                translations: { en: 'Rules and transitions settings' },
                 link: '/workflow/create-rules-transitions/',
-              },     
+              },
                 {
                 label: 'Добавление workflow к проекту',
-                translations: { en: 'add workflow to project' },
+                translations: { en: 'Add workflow to project' },
                 link: '/workflow/add-workflow/',
-              },     
+              },
           ]
          },
           {
@@ -629,13 +627,12 @@ export default defineConfig({
                 label: 'Управление аккаунтом',
                 translations: { en: 'Managing account' },
                 link: '/people-contacts/managing-account/',
-              }
-
-              // {
-              //   label: 'Связывание задач',
-              //   translations: { en: 'Connecting tasks' },
-              //   link: '/people-contacts/connecting-tasks/',
-              // },
+              },
+              {
+                label: 'Связывание задач',
+                translations: { en: 'Connecting tasks' },
+                link: '/people-contacts/connecting-tasks/',
+              },
             ],
           },
           {

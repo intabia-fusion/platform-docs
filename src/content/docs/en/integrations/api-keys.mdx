@@ -29,11 +29,11 @@ Keys live in **Settings → API + Webhooks**. They come in two kinds:
 When creating a key, you configure:
 
 - **Name** — to tell keys apart in the list and in the activity history.
-- **Operations** (integration keys only) — which write actions this key is allowed to perform (list below). Reading is always allowed and isn't limited by the operations list. An empty operations list makes the key read-only.
+- **Write permissions** (integration keys only) — which write actions this key is allowed to perform (list below). Reading is always allowed and isn't limited by the operations list. An empty operations list makes the key read-only.
 - **Rights mode** (personal keys only) — "full rights" (writes with the person's own rights) or "read only". A personal key carries no operation list, see the next section.
-- **Where it applies** — an optional list of projects, channels and folders: writes are allowed only into the listed ones. Empty means the whole workspace.
+- **Spaces** — an optional list of projects, channels and folders: writes are allowed only into the listed ones. Empty means the whole workspace.
 - **Token lifetime** — 1 to 90 days, 30 by default. It sets the key's own expiration too: the date is derived from this number and shown next to it, never picked separately.
-- **Incoming webhooks** — a separate flag: may this key be used on the [ingest routes](/en/integrations/webhooks). It is independent of operations: a key with full rights but without this flag is refused there. It also gives the key a **Rules** button — [mapping a foreign payload format](/en/integrations/webhooks#rules-for-a-foreign-payload-format).
+- **Allow incoming webhooks** — a separate flag: may this key be used on the [ingest routes](/en/integrations/webhooks). It is independent of operations: a key with full rights but without this flag is refused there. It also gives the key a **Rules** button — [mapping a foreign payload format](/en/integrations/webhooks#rules-for-a-foreign-payload-format).
 
 <Image src={apiKeyPersonal} alt='Creating a personal key' inferSize />
 
@@ -82,4 +82,7 @@ Rotation is manual — there's no automatic refresh. While the key is still vali
 The "Revoke" button in the key list is irreversible. Immediately after revoking:
 
 - Any new call made with this key — for example, a new request to the [webhook endpoint](/en/integrations/webhooks) — is rejected: a presented key is checked against the database on every request.
-- A token already issued from this key before the revocation is not forcibly invalidated — an active integration still using that token keeps working until the token itself expires (up to 90 days at the maximum lifetime). If you need a guaranteed, immediate cutoff, keep the token lifetime short.
+- **Personal key:** a token already issued before the revocation is not forcibly invalidated — an active integration still using that token keeps working until the token itself expires (up to 90 days at the maximum lifetime).
+- **Integration key:** revoking drops the integration account's workspace membership, so a new session started with the already-issued token is rejected right away. An already-open active session can keep working past the revocation as long as it keeps making requests more often than once every 60 seconds.
+
+If you need a guaranteed, immediate cutoff, keep the token lifetime short.

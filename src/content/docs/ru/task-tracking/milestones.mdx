@@ -3,11 +3,10 @@ title: Этапы
 description: Узнайте, как создавать этапы и использовать их для организации задач.
 ---
 
-import { Image } from 'astro:assets';
-import LocalVideo from "../../../../components/LocalVideo.astro";
-import createMilestoneIssue from '../../../../assets/screenshots/huly/milestones-create-issue.png';
-import addMilestoneIssue from '../../../../assets/screenshots/huly/milestones-issue-view.png';
-import addMilestoneIssueTracker from '../../../../assets/screenshots/huly/milestones-tracker-view.png';
+import Shot from "../../../../components/Shot.astro";
+import createMilestoneIssue from '../../../../assets/screenshots/task-tracking/milestones-create-issue.png';
+import addMilestoneIssue from '../../../../assets/screenshots/task-tracking/milestones-issue-view.png';
+import addMilestoneIssueTracker from '../../../../assets/screenshots/task-tracking/milestones-tracker-view.png';
 
 
 ## Что такое этап?
@@ -28,32 +27,17 @@ import addMilestoneIssueTracker from '../../../../assets/screenshots/huly/milest
 
 В качестве альтернативы, при создании новой задачи из любого другого места в Трекере, просто выберите желаемый этап из выпадающего меню в диалоговом окне создания задачи:
 
-<a href={createMilestoneIssue.src} target="_blank" rel="noopener noreferrer">
-<Image src={createMilestoneIssue} alt="Добавление этапа к новой задаче" inferSize /></a>
+<Shot src={createMilestoneIssue} alt="Добавление этапа к новой задаче" />
 
 ### Связывание существующей задачи с этапом
 
 Если вы уже создали задачу и хотите связать её с существующим этапом, вы можете открыть страницу деталей этой задачи и выбрать желаемый этап в правой боковой панели:
 
-<a href={addMilestoneIssue.src} target="_blank" rel="noopener noreferrer">
-<Image
-src={addMilestoneIssue}
-alt='Добавление задачи к этапу из представления задачи'
-inferSize
+<Shot src={addMilestoneIssue} alt='Добавление задачи к этапу из представления задачи' />
 
-/>
-</a>
+В качестве альтернативы вы можете щёлкнуть правой кнопкой мыши на задаче в вашем трекере, чтобы открыть контекстное меню, выбрать `Изменить` -> `Этап` и выбрать этап оттуда:
 
-В качестве альтернативы вы можете щёлкнуть правой кнопкой мыши на задаче в вашем трекере, чтобы открыть контекстное меню, и выбрать этап оттуда:
-
-<a href={addMilestoneIssueTracker.src} target="_blank" rel="noopener noreferrer">
-<Image
-src={addMilestoneIssueTracker}
-alt='Добавление задачи к этапу из представления трекера'
-inferSize
-
-/>
-</a>
+<Shot src={addMilestoneIssueTracker} alt='Добавление задачи к этапу из представления трекера' />
 
 ## Использование этапа для сортировки задач
 

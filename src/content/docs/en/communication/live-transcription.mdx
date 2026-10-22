@@ -2,13 +2,10 @@
 title: Live transcription
 description: Learn how Julia AI — Intabia Platform's AI assistant — can transcribe your meetings in real time.
 ---
-import LocalVideo from "../../../../components/LocalVideo.astro";
 import { Image } from 'astro:assets';
 import liveTranscription from '../../../../assets/screenshots/huly/hulia-live-transcription.png';
 import liveTranscriptionGuide from '../../../../assets/screenshots/huly/live-transcription-guide.png';
 import liveTranscriptionViewAll from '../../../../assets/screenshots/huly/hulia-live-transcription-view-all.png';
-
-<LocalVideo id="1c7wi_RMKJY" posterQuality="max" />
 
 Meet Julia AI, Intabia Platform's first AI assistant! Julia AI transcribes meetings in real-time, saved as a chat correspondence in which you can react, reply, and bookmark messages as you would in any other chat.
 
@@ -23,7 +20,7 @@ Live transcription is the starting point for an exciting future for Julia AI, wh
 
 ## Live transcription
 
-When a meeting begins, you'll notice that meeting participants appear in the right side panel while the live transcription appears on the main screen in the `Activity` section. You'll be able to see your transcription appear in real time during the meeting. Select the language for transcription in the bottom left corner of the meeting menu.
+When a meeting begins, you'll notice that meeting participants appear in the right side panel while the live transcription appears on the main screen in the `Activity` section. You'll be able to see your transcription appear in real time during the meeting. The transcription language is set in the room's settings.
 
 If you navigate away during the meeting to another part of your workspace, you can still access your live transcription by clicking on the video icon in the right side menu and selecting the `Transcription` tab.
 
@@ -42,11 +39,11 @@ To disable the default live transcription for a meeting room, open the room and 
 
 When transcription is enabled during a meeting, you'll see the quill icon in the bottom menu of your meeting appears red. To disable transcription for a meeting, click the quill icon at the bottom menu (labeled `Stop transcription`). 
 
-> **Note**: Meetings are also recorded by default, and this can be disabled in the same way as transcription — either in the meeting room settings, or for a specific meeting. To disable recording during a meeting, click the recording icon in the bottom menu (labeled `Stop recording`). The icon will appear red if the meeting is being recorded.
+> **Note**: Recording is off by default. You can turn it on by default for the entire meeting room the same way as transcription — in the room settings — or toggle it for a specific meeting during the call. To toggle recording during a meeting, click the recording icon in the bottom menu (labeled `Stop recording` while recording is on). The icon will appear red if the meeting is being recorded.
 
 ## Viewing past transcriptions
 
-You can see any previously saved transcriptions by navigating to your virtual office and selecting the `Meeting minutes` icon in the top left corner. Here, you'll see a list of all of the transcriptions from your previous meetings. You can also delete transcriptions that you don't want saved in your workspace.
+You can see any previously saved transcriptions by navigating to your virtual office and selecting the `Meeting minutes` icon in the top left corner. Here, you'll see a list of all of the transcriptions from your previous meetings. To remove a meeting's minutes from your own list, right-click it and select `Leave` — this leaves the meeting's space rather than deleting the transcription for everyone.
 
 <Image 
 src={liveTranscriptionViewAll} 
@@ -59,12 +56,14 @@ You can also view the transcriptions for a specific room. Click on any meeting r
 
 ## Privacy
 
-During this early stage of development of this feature, live transcriptions are visible to everyone in the workspace. The best way to keep meetings private is to disable transcription (and recording) at the beginning of your meeting, or for the entire meeting room.
+By default, live transcriptions are visible to everyone in the workspace. To restrict access, make the meeting room or the meeting itself private (see "Room security settings" in the [virtual office](/en/communication/virtual-office) guide) — then transcription, recording and chat for that meeting are only available to its members. You can also simply disable transcription (and recording) at the beginning of your meeting, or for the entire meeting room.
 
-We are planning to introduce chat security settings, which will most likely begin with settings to control access to virtual office rooms, making transcriptions private to only those with permission to view them. In the near future, we plan to implement end-to-end encryption, which will also enhance security. In the meantime, you can understand how Intabia Platform uses your data in our [Privacy Policy](https://huly.io/legal/privacy). Please feel free to reach out to our team if further clarification is needed.
+## Meeting summary
+
+Besides transcribing, Julia AI can summarize a meeting's main points. Right-click the meeting and select `Summarize discussion`. A comment from Julia AI with the summary appears in the `Activity` section.
 
 ## What's next for Julia AI?
 
-Live transcriptions are just the beginning for Julia AI. At this point, live transcription may not be useful for everyone on Intabia Platform; however, soon Julia AI will be able to not only transcribe meetings but also summarize main points, create action items and documents based on your meetings, help schedule follow-ups and more.
+In the near future, Julia AI will be able to create activities and documents based on your meetings, help schedule follow-ups and more.
 
-Ultimately, Julia AI will be aware of all workspace activity that she's given permission to see, and thus she will be able to assist in any number of ways that eliminate redundancies, reduce human error and automate tedious tasks to help you work more productively. Stay tuned for more updates as Julia AI continues to evolve!
+Ultimately, Julia AI will be aware of all workspace activity that she's given permission to see, and thus she will be able to assist in any number of ways that eliminate redundancies, reduce human error and automate tedious tasks to help you work more productively.

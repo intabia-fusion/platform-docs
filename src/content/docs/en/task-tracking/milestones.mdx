@@ -3,13 +3,10 @@ title: Milestones
 description: Learn how to create milestones and use them to organize issues.
 ---
 
-import { Image } from 'astro:assets';
-import LocalVideo from "../../../../components/LocalVideo.astro";
-import createMilestoneIssue from '../../../../assets/screenshots/huly/milestones-create-issue.png';
-import addMilestoneIssue from '../../../../assets/screenshots/huly/milestones-issue-view.png';
-import addMilestoneIssueTracker from '../../../../assets/screenshots/huly/milestones-tracker-view.png';
-
-<LocalVideo id='lfVgwL0hWNs' posterQuality='max' />
+import Shot from "../../../../components/Shot.astro";
+import createMilestoneIssue from '../../../../assets/screenshots/task-tracking/milestones-create-issue-en.png';
+import addMilestoneIssue from '../../../../assets/screenshots/task-tracking/milestones-issue-view-en.png';
+import addMilestoneIssueTracker from '../../../../assets/screenshots/task-tracking/milestones-tracker-view-en.png';
 
 ## What are milestones?
 
@@ -29,32 +26,17 @@ There are a few ways to add issues to a milestone. If you haven't created the is
 
 Alternatively, when creating a new issue from anywhere else in the tracker, simply select the desired milestone from the dropdown menu in the issue creation dialog:
 
-<Image
-src={createMilestoneIssue}
-alt='Add a milestone to a new issue'
-inferSize
-
-/>
+<Shot src={createMilestoneIssue} alt='Add a milestone to a new issue' />
 
 ### Linking an existing issue to a milestone
 
 If you've already created an issue and want to link it to an existing milestone, you can open the details page for that issue and select the desired milestone from the right sidebar:
 
-<Image 
-src={addMilestoneIssue} 
-alt='Add an issue to a milestone from the issue view' 
-inferSize
+<Shot src={addMilestoneIssue} alt='Add an issue to a milestone from the issue view' />
 
-/>
+Alternatively, you could right-click on the issue in your tracker to open the context menu, select `Edit` -> `Milestone`, and select a milestone from there:
 
-Alternatively, you could right-click on the issue in your tracker to open the context menu, and select a milestone from there:
-
-<Image 
-src={addMilestoneIssueTracker} 
-alt='Add an issue to a milestone from the tracker view' 
-inferSize
-
-/>
+<Shot src={addMilestoneIssueTracker} alt='Add an issue to a milestone from the tracker view' />
 
 ## Using milestones to sort issues
 

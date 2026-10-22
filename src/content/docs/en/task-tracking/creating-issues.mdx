@@ -3,25 +3,40 @@ title: Creating issues
 description: Learn how to create an issue in your Intabia Platform workspace.
 ---
 
-import { Image } from "astro:assets";
-import LocalVideo from "../../../../components/LocalVideo.astro";
-import createIssue from "../../../../assets/screenshots/huly/tracker-create-issue.png";
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+import ScreenshotSteps from "../../../../components/ScreenshotSteps.astro";
+import Shot from "../../../../components/Shot.astro";
+import newIssueButton from "../../../../assets/screenshots/task-tracking/creating-issues-new-button-en.png";
+import newIssueDialog from "../../../../assets/screenshots/task-tracking/creating-issues-dialog-en.png";
+import createdIssue from "../../../../assets/screenshots/task-tracking/creating-issues-created-en.png";
 
 ## What are issues?
 
 Issues represent specific tasks that need to be completed. Issues can be broken down into sub-issues for smaller tasks that need to be completed to accomplish the parent issue. Issues are organized into projects, which define distinct spaces that contain your tasks.
 
-> **Note:** Whenever an issue is created with a status of "Todo" and is assigned to a team member, the system automatically generates an [action item](/en/task-tracking/creating-action-items) in that member's Planner, allowing them to add it to their own schedule.
+> **Note:** In a classic project type, whenever an issue is assigned to a team member and its status belongs to the "Unstarted" or "Active" category (`Todo`, `In Progress`), the system automatically generates an [action item](/en/task-tracking/creating-action-items) in that member's Planner, allowing them to add it to their own schedule.
 
 ## Creating an issue
 
 Select the Tracker view by clicking the checkbox icon on the left sidebar, and ensure the side panel is open by clicking the horizontal lines at the top left.
 
-Click the blue `+ New issue` button at the top of the side panel. This will open a dialog where you can enter some initial settings for your issue. After entering your desired settings, click `Create issue`.
+Click the `+ New issue` button at the top of the side panel. This will open a dialog where you can enter some initial settings for your issue. After entering your desired settings, click `Create issue`.
+
+<ScreenshotSteps>
+<Tabs>
+  <TabItem label="1. New issue">
+    <Shot src={newIssueButton} alt="The New issue button in the Tracker side panel" />
+  </TabItem>
+  <TabItem label="2. Fill in and create">
+    <Shot src={newIssueDialog} alt="New issue dialog with a title and a description" />
+  </TabItem>
+  <TabItem label="3. Issue created">
+    <Shot src={createdIssue} alt="The created issue opened in the project" />
+  </TabItem>
+</Tabs>
+</ScreenshotSteps>
 
 > **Note:** If you navigate away while creating an issue, you'll notice that the `+ New issue` button becomes `+ Resume draft`. Click this to re-open the issue you were working on.
-
-<Image src={createIssue} alt="Create issue" inferSize />
 
 ## Issue settings
 
@@ -33,7 +48,7 @@ When creating or editing an issue, you can configure the following settings:
 
 **Description**: A description of your issue. Descriptions may be formatted with markdown formatting, including headers, codeblocks, links and more.
 
-**Issue status**: Setting the issue status to "Todo" (and adding an assignee) will automatically generate an [action item](/en/task-tracking/creating-action-items) in that member's Planner
+**Status**: In a classic project type, an issue status from the "Unstarted" or "Active" category (`Todo`, `In Progress`) together with an assignee will automatically generate an [action item](/en/task-tracking/creating-action-items) in that member's Planner.
 
 **Priority**: Choose from No priority, Low, Medium, High or Urgent.
 
@@ -47,18 +62,11 @@ When creating or editing an issue, you can configure the following settings:
 
 **Set parent issue**: Make this issue the sub-issue of an existing issue. If the issue already has a parent, simply click the unset icon next to the parent issue to detach it.
 
-**Attach**: Attach a file, image or other media to this issue.
+**Attachments** (paperclip icon at the bottom of the dialog): Attach a file, image or other media to this issue.
 
 ## Tips for creating effective issues
 
 There are so many ways to customize issues to suit the needs of your specific projects and workflows! However, there are a few tips to keep in mind as you create issues for your team.
 
 - Issues should be small in scope, representing a task assigned to just one person. For larger tasks, use sub-issues to break them down further.
-- Unless they are in backlog, all new issues should have a status of "Todo" to trigger the system to create an [action item](/en/task-tracking/creating-action-items) for the assigned team member.
-- In keeping with best practices, an issue status should not need to be manually changed from "Todo" to "In Progress" or "Done". The status of an issue can automatically be determined by the assigned team member's action item status. For more on how this process is automated (and why), read more about action items (previously called "todos") <a href="https://huly.io/blog/capturing-dynamic-team-workflows-with-action-items" target="_blank">here</a>.
-
-## Dive deeper with our video tutorial
-
-Check out our tutorial on task tracking in Intabia Platform for a step-by-step guide on creating issues, assigning action items and getting the most out of task automations.
-
-<LocalVideo id="ljpz0bZ75JA" posterQuality="max" />
+- For the system to create an [action item](/en/task-tracking/creating-action-items) for the assigned team member, the issue's status needs to belong to the "Unstarted" or "Active" category (`Todo` and `In Progress` in a classic project type), not stay in `Backlog`.

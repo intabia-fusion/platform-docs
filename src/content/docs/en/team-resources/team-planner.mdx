@@ -8,17 +8,15 @@ import teamPlanner from "../../../../assets/screenshots/huly/team-planner.png";
 
 ## Navigating the team planner
 
-The team planner in Intabia Platform provides a way to visualize your team's agenda at a glance. To navigate to the team planner, click the sun icon in the left side navigation bar.
+The team planner in Intabia Platform provides a way to visualize your team's agenda at a glance. To navigate to it, open the Planner app and pick `Team` from the mode dropdown in the header (`Schedule` / `Calendar` / `Team`).
 
-The team planner breaks the agenda down by project, and you can find each of your project listed on the left side panel.
-
-This design allows teams with multiple projects to easily see all of the work planned for each project. This also ensures project privacy, as team members will only be able to view the planner for projects they are a member of, while the workspace owner will be able to view all projects. For this reason, it is not currently possible to view the work for all projects at the same time.
+There's no separate project list in the sidebar: to narrow the view down to one or more projects, use the `Filter` button in the header. This also ensures project privacy: private projects are only visible to their members, while public projects, and all projects for the workspace owner, are visible without restriction.
 
 ### Agenda & calendar views
 
-By default, the team planner shows the agenda view of the previous and current day. You can scroll through the days using the arrow buttons in the top right corner, viewing 2 days at a time as you scroll.
+By default, the team planner shows the agenda view for a 3-day window: yesterday, today and tomorrow. You can scroll through the days using the arrow buttons.
 
-The calendar view displays either a daily or weekly calendar of each team member's tasks. In the daily calendar, tasks are displayed as blocks, and can be viewed in 1-hour or 30-minute increments. The weekly calendar displays each team member's tasks on each day of the week.
+The calendar view (`Calendar` in the same mode dropdown) has four modes: Day, Week, Month and Year. Day is only available when the filter narrows the view down to exactly one project; it displays tasks as blocks, in 1-hour, 30-minute or 15-minute increments. Week and Month show each team member's tasks broken down by day; Year shows workload aggregated by month.
 
 <Image src={teamPlanner} alt="Team planner" inferSize />
 
@@ -28,7 +26,7 @@ By default, when a team member schedules an action item in the their personal pl
 
 If the team member has set the visibility of their action item to "Only visible to you", it will not appear in the team planner.
 
-Action icon items that are not associated with a space (for example, those that are created manually in an individual's personal planner) will not appear in the team planner. Once an action item has been added to their personal planner, the user can then select a visibility setting for that action item, depending on whether they want it to be visible to everyone, appear as "Busy", or be only visible to them.
+Action icon items that are not associated with a space (for example, those that are created manually in an individual's personal planner) will not appear in the team planner. Once an action item has been added to their personal planner, the user can then select a visibility setting for that action item, depending on whether they want it to be visible to everyone, appear as "FreeBusy", or be only visible to them.
 
 ## Visibility settings for events
 
@@ -42,4 +40,4 @@ Just like action items, if the visibility is set to "Only visible to you", the e
 
 Intabia Platform does not currently offer a Gantt Chart feature or other visualization of workload and capacity. The team planner does provide a way to see how many hours each team member has scheduled for the day, which can be used in combination with time tracking and due dates to understand project allocations and capacity planning.
 
-If you're interested in finding out more about how you can work with Intabia Platform's current implementation to manage your specific workflows, you can chat with other users in our [Slack Community](https://huly.link/slack) to ask questions and exchange ideas.
+If you're interested in finding out more about how you can work with Intabia Platform's current implementation to manage your specific workflows, reach out to your workspace admin to ask questions and exchange ideas.

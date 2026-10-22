@@ -3,12 +3,9 @@ title: Участники задач
 description: Узнайте, как добавлять соавторов к задачам и управлять уведомлениями в качестве участников.
 ---
 
-import { Image } from 'astro:assets';
-import LocalVideo from "../../../../components/LocalVideo.astro";
-import notificationsSettingsActivity from '../../../../assets/screenshots/huly/settings-notifications-activity.png';
-import trackerSubscribed from '../../../../assets/screenshots/huly/tracker-subscribed.png';
-import trackerNotification from '../../../../assets/screenshots/huly/notification-issuses.png';
-import subscribedIssuses from '../../../../assets/screenshots/huly/sub-issuses.png';
+import Shot from "../../../../components/Shot.astro";
+import trackerNotification from '../../../../assets/screenshots/task-tracking/issue-collaborators-notifications.png';
+import subscribedIssuses from '../../../../assets/screenshots/task-tracking/issue-collaborators-subscribed.png';
 
 Задачи можно назначить только одному человеку, но вы можете добавлять участников, чтобы держать других членов команды в курсе активности по задаче. Участники будут получать уведомления об активности задачи в соответствии со своими личными настройками уведомлений.
 
@@ -26,16 +23,9 @@ import subscribedIssuses from '../../../../assets/screenshots/huly/sub-issuses.p
 
 Участники автоматически получают уведомления во входящих об активности задачи, такой как комментарии, обновления статуса задачи и другие изменения. Конкретные активности, которые будут вызывать уведомления во входящих, зависят от собственных настроек уведомлений пользователя.
 
-Чтобы управлять уведомлениями, перейдите в Настройки и выберите `Уведомления` в меню левой боковой панели. Затем выберите `Задачи`. Настройки уведомлений для задач одинаковы независимо от того, являетесь ли вы владельцем, исполнителем или участником задачи. В этом меню настроек вы можете выбрать, о каких видах активности задачи хотите получать уведомления. Push-уведомления, уведомления по электронной почте и в Telegram также можно включить или отключить.
+Чтобы управлять уведомлениями, перейдите в Настройки и выберите `Уведомления` в меню левой боковой панели. Затем выберите `Задачи`. Настройки уведомлений для задач одинаковы независимо от того, являетесь ли вы владельцем, исполнителем или участником задачи. В этом меню настроек вы можете выбрать, о каких видах активности задачи хотите получать уведомления, и включить или отключить столбцы `Входящие`, `Push` и `Звук`.
 
-<a href={trackerNotification.src} target="_blank" rel="noopener noreferrer">
-<Image 
-    src={trackerNotification} 
-    alt="Настройки уведомлений для задач" 
-    inferSize 
-    
-/>
-</a>
+<Shot src={trackerNotification} alt="Настройки уведомлений для задач" />
 
 ## Просмотр задач, на которые вы подписаны
 
@@ -43,13 +33,6 @@ import subscribedIssuses from '../../../../assets/screenshots/huly/sub-issuses.p
 
 Перейдите в Трекер и выберите `Мои задачи` в левой боковой панели. Затем выберите `Отслеживаемые` в меню в правом верхнем углу. Этот фильтр покажет вам все задачи, в которых вы являетесь участником, владельцем или исполнителем.
 
-<a href={subscribedIssuses.src} target="_blank" rel="noopener noreferrer">
-<Image 
-    src={subscribedIssuses} 
-    alt="Просмотр отслеживаемых задач в трекере" 
-    inferSize 
-    
-/>
-</a>
+<Shot src={subscribedIssuses} alt="Просмотр отслеживаемых задач в трекере" />
 
 Как и в любом другом модуле Трекера, вы можете фильтровать и сортировать задачи, чтобы найти именно то, что нужно, и сохранять пользовательские настройки для быстрого доступа позже. Чтобы узнать больше о настройках Трекера, см. наше руководство по [просмотру и сортировке задач](/ru/task-tracking/viewing-issues).

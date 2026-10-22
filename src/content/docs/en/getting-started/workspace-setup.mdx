@@ -37,9 +37,9 @@ Select your profile icon in the bottom left corner of the sidebar. Then, select 
 
 It's also possible to invite new members to your workspace by adding them directly as employees in the Contacts module. Navigate to Contacts and select Employee in the left side menu. Click the `+ Employee` button and enter a name and email address for the person you want to invite. An email invitation will be sent to the email address you entered.
 
-Only workspace owners and maintainers can invite new members or create employees.
+Any member with the User role or above (that is, anyone except the guest roles, Guest and Readonly) can invite new members or create employees.
 
-> **Note:** Under the current version of Intabia Platform, new members are not automatically added to projects and teamspaces unless you select the `auto join` toggle for those spaces. This helps you maintain control over who has access to the data within your workspace when new members join.
+> **Note:** Under the current version of Intabia Platform, new members are not automatically added to projects and teamspaces unless you select the `Auto join` toggle for those spaces. This helps you maintain control over who has access to the data within your workspace when new members join.
 
 <a href={joinNewWorkspace.src} target="_blank" rel="noopener noreferrer">
 <Image 
@@ -60,7 +60,7 @@ To configure workspace settings, open the Settings panel by clicking on your ava
 Here are some basic settings that can be changed:
 
 * **General**: Add a custom logo for your workspace or change its name. Here, you can also disable RBAC for the entire workspace (useful for testing purposes) or delete your workspace entirely.
-* **Owners**: Set roles for all team members as User, Maintainer or Owner. To learn more about roles, see [this guide](/en/advanced-settings/roles).
+* **Members**: Set roles for all team members as Readonly, Guest, User, Maintainer or Owner. To learn more about roles, see [this guide](/en/advanced-settings/roles).
 * **Configure**: Enable or disable modules in your workspace. For more on modules, see the section below.
 * **Invite settings**: Configure settings for workspace invitations.
 * **Office settings**: Enable or disable recording and transcription of conversations by default.

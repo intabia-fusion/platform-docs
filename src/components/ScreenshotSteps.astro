@@ -1,0 +1,100 @@
+---
+// Wraps Starlight <Tabs> of step screenshots into a card with a compact "‹ N/M ›" switcher, so it is
+// obvious that there are more pictures than the one shown.
+---
+
+<screenshot-steps class="shot-steps">
+  <slot />
+  <div class="steps-nav" hidden>
+    <button type="button" class="steps-prev"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <span class="steps-count"></span>
+    <button type="button" class="steps-next"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </div>
+</screenshot-steps>
+
+<script>
+  class ScreenshotSteps extends HTMLElement {
+    connectedCallback(): void {
+      const tabs = [...this.querySelectorAll<HTMLElement>('[role="tab"]')]
+      const nav = this.querySelector<HTMLElement>('.steps-nav')
+      if (nav === null || tabs.length < 2) return
+      const en = document.documentElement.lang.startsWith('en')
+      const prev = nav.querySelector<HTMLButtonElement>('.steps-prev')!
+      const next = nav.querySelector<HTMLButtonElement>('.steps-next')!
+      const count = nav.querySelector<HTMLElement>('.steps-count')!
+      prev.title = en ? 'Previous step' : 'Предыдущий шаг'
+      next.title = en ? 'Next step' : 'Следующий шаг'
+      const current = (): number => Math.max(0, tabs.findIndex((t) => t.getAttribute('aria-selected') === 'true'))
+      const update = (): void => {
+        const i = current()
+        count.textContent = `${i + 1}/${tabs.length}`
+        prev.disabled = i === 0
+        next.disabled = i === tabs.length - 1
+      }
+      // Every step panel is as tall as the tallest picture, so the card does not jump between steps.
+      const panels = [...this.querySelectorAll<HTMLElement>('[role="tabpanel"]')]
+      const fit = (): void => {
+        const box = panels[0]?.parentElement?.clientWidth ?? 0
+        const tallest = Math.max(
+          ...[...this.querySelectorAll<HTMLImageElement>('[role="tabpanel"] img')].map((img) =>
+            // Hidden panels render nothing, so size comes from the attributes, scaled like max-width: 100%.
+            Math.min(1, box / Number(img.getAttribute('width'))) * Number(img.getAttribute('height'))
+          )
+        )
+        for (const p of panels) p.style.minHeight = `${Math.ceil(tallest)}px`
+      }
+      new ResizeObserver(fit).observe(this)
+      fit()
+      prev.addEventListener('click', () => tabs[current() - 1]?.click())
+      next.addEventListener('click', () => tabs[current() + 1]?.click())
+      new MutationObserver(update).observe(this, { subtree: true, attributes: true, attributeFilter: ['aria-selected'] })
+      nav.hidden = false
+      update()
+    }
+  }
+  customElements.define('screenshot-steps', ScreenshotSteps)
+</script>
+
+<style>
+  .shot-steps {
+    display: block;
+    margin: 1.5rem 0;
+    padding: 0.25rem 1rem 0.75rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.75rem;
+    background: var(--sl-color-gray-7, var(--sl-color-black));
+  }
+  .steps-nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  .steps-nav button {
+    width: 1.75rem;
+    height: 1.75rem;
+    padding: 0;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--sl-color-white);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .steps-nav button:not(:disabled):hover {
+    border-color: var(--sl-color-accent);
+    color: var(--sl-color-accent-high);
+  }
+  .steps-nav button:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+  .steps-count {
+    color: var(--sl-color-gray-3);
+    font-size: var(--sl-text-xs);
+    font-variant-numeric: tabular-nums;
+  }
+</style>

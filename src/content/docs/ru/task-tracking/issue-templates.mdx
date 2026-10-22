@@ -3,15 +3,9 @@ title: Шаблоны задач
 description: Узнайте, как создавать многоразовые шаблоны задач и использовать их при создании новых задач.
 ---
 
-import { Image } from 'astro:assets';
-import LocalVideo from "../../../../components/LocalVideo.astro";
-import issueTemplate from '../../../../assets/screenshots/huly/tracker-template.png';
-import templateDropdown from '../../../../assets/screenshots/huly/tracker-template-dropdown.png';
-import newTemplate from '../../../../assets/screenshots/huly/new-template-issue.png';
-import useTemplate from '../../../../assets/screenshots/huly/use-template.png';
-
-
-
+import Shot from "../../../../components/Shot.astro";
+import newTemplate from '../../../../assets/screenshots/task-tracking/issue-templates-example.png';
+import useTemplate from '../../../../assets/screenshots/task-tracking/issue-templates-dropdown.png';
 
 Шаблоны задач можно использовать для создания похожих задач, которые следуют одному формату. Эти шаблоны особенно полезны для таких вещей, как отчёты об ошибках и запросы на функции, где одна и та же информация требуется каждый раз при создании новой задачи.
 
@@ -23,31 +17,17 @@ import useTemplate from '../../../../assets/screenshots/huly/use-template.png';
 
 Создание шаблона выглядит аналогично созданию любой другой задачи. Введите название и содержимое для вашего шаблона, а также любые настройки по умолчанию, такие как уровень приоритета, исполнитель и метки. Настройки, которые вы выберете здесь, автоматически применятся к любой задаче, созданной с использованием шаблона.
 
-Когда закончите, нажмите `Создать`.
+Когда закончите, нажмите `Сохранить шаблон`.
 
-> Ниже показан пример шаблона Отчёта об ошибке. Этот шаблон имеет уровень приоритета по умолчанию «Наивысший» и имеет исполнителя и метки по умолчанию.
+> Ниже показан пример шаблона Отчёта об ошибке. Этот шаблон имеет приоритет по умолчанию «Высокий», исполнителя и одну метку по умолчанию.
 
-<a href={newTemplate.src} target="_blank" rel="noopener noreferrer">
-<Image 
-    src={newTemplate} 
-    alt="Шаблон для отчётов об ошибках" 
-    inferSize 
-    
-/>
-</a>
+<Shot src={newTemplate} alt="Шаблон для отчётов об ошибках" />
 
 ## Использование шаблона
 
 При создании новой задачи выберите желаемый шаблон из выпадающего меню в верхней части диалогового окна.
 
-<a href={useTemplate.src} target="_blank" rel="noopener noreferrer">
-<Image 
-    src={useTemplate} 
-    alt="Выпадающее меню для выбора шаблона" 
-    inferSize 
-    
-/>
-</a>
+<Shot src={useTemplate} alt="Выпадающее меню для выбора шаблона" />
 
 Шаблон автоматически заполнит название задачи, описание и любые другие указанные вами настройки по умолчанию.
 

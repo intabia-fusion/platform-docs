@@ -1,0 +1,19 @@
+---
+// A screenshot at one scale for the whole site: 1:1 with the real interface. Shots are taken at
+// deviceScaleFactor 2, so the shown width is half the file width and retina screens get the 2x file; a small
+// area stays small instead of being stretched to the column. Take areas no wider than the column (~760px),
+// a wider shot shrinks to the column; click opens the full size.
+import { Image } from 'astro:assets'
+import type { ImageMetadata } from 'astro'
+
+interface Props {
+  src: ImageMetadata
+  alt: string
+}
+
+const { src, alt } = Astro.props
+const width = Math.round(src.width / 2)
+const height = Math.round(src.height / 2)
+---
+
+<a href={src.src} target="_blank" rel="noopener noreferrer"><Image {src} {alt} {width} {height} densities={[1, 2]} /></a>
